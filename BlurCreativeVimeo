@@ -1,0 +1,2682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" id="metaThemeColor" content="#0f4c81">
+<title>Vimeo Video Directory</title>
+<link id="dynamicFavicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f4c81'/%3E%3Crect x='6' y='6' width='52' height='52' rx='10' fill='none' stroke='%2300a8e8' stroke-width='3'/%3E%3Cpolygon points='25,19 25,45 46,32' fill='%23ffffff'/%3E%3C/svg%3E">
+<link id="appleTouchIcon" rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%230f4c81'/%3E%3Crect x='18' y='18' width='144' height='144' rx='28' fill='none' stroke='%2300a8e8' stroke-width='8'/%3E%3Cpolygon points='72,52 72,128 130,90' fill='%23ffffff'/%3E%3C/svg%3E">
+<script id="bootThemeScript">
+(function() {
+  try {
+    const saved = localStorage.getItem("vvd_theme");
+    const theme = saved || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  } catch {
+    document.documentElement.setAttribute("data-theme", "light");
+  }
+})();
+</script>
+<style id="appStyles">
+:root {
+  --brand-primary:#0f4c81;
+  --brand-accent:#00a8e8;
+
+  --bg:#f4f7fa;
+  --panel:#ffffff;
+  --panel-hover:#f0f7fc;
+  --card:#ffffff;
+  --border:#dbe3ec;
+  --row-border:#e8eef5;
+  --text:#0f172a;
+  --muted:#52657a;
+  --mono-text:#334155;
+  --brand-accent-text:var(--brand-primary);
+
+  --ctrl-bg:#ffffff;
+  --ctrl-focus-bg:#ffffff;
+  --ctrl-text:#0f172a;
+  --ctrl-placeholder:#64748b;
+  --ctrl-border:rgba(255,255,255,0.85);
+  --kbd-bg:#f1f5f9;
+  --kbd-text:#64748b;
+  --kbd-border:#cbd5e1;
+
+  --toggle-wrap-bg:rgba(0,0,0,0.26);
+  --toggle-wrap-border:rgba(255,255,255,0.28);
+  --toggle-active-bg:#ffffff;
+  --toggle-active-text:var(--brand-primary);
+
+  --sync-bg:var(--brand-accent);
+  --sync-text:#ffffff;
+  --sync-border:rgba(255,255,255,0.35);
+
+  --stats-accent:var(--brand-primary);
+  --th-bg:#eef3f8;
+  --th-text:#334155;
+  --th-hover-bg:#e3ecf5;
+  --th-hover-text:var(--brand-primary);
+  --th-active-bg:#e2eff9;
+  --th-active-text:var(--brand-primary);
+
+  --thumb-border:#cbd5e1;
+  --title-hover:var(--brand-primary);
+
+  --sb-bg:#eef7fc;
+  --sb-border:#bae0f7;
+  --sb-text:#0f172a;
+  --sb-hover-bg:#dcf0fc;
+  --sb-hover-text:#0b2e4f;
+  --hl-bg:rgba(0,168,232,0.26);
+  --hl-text:#082f54;
+
+  --cc-bg:#e0f4fe;
+  --cc-border:#9adcf9;
+  --cc-text:var(--brand-primary);
+
+  --btn-sec-bg:#eef3f8;
+  --btn-sec-border:#cbd6e2;
+  --btn-sec-text:#1e293b;
+  --btn-sec-hover-bg:#e0ecf7;
+  --btn-sec-hover-text:var(--brand-primary);
+
+  --btn-dl-bg:#f0f8ff;
+  --btn-dl-border:#9adcf9;
+  --btn-dl-text:var(--brand-primary);
+  --btn-dl-hover-bg:var(--brand-primary);
+  --btn-dl-hover-text:#ffffff;
+
+  --btn-cap-text:#ffffff;
+  --btn-cap-hover-bg:var(--brand-primary);
+  --btn-cap-hover-text:#ffffff;
+
+  --page-btn-bg:#ffffff;
+  --page-btn-border:#cbd6e2;
+  --page-btn-text:#1e293b;
+  --page-btn-hover-bg:#eef7fc;
+  --page-btn-active-bg:var(--brand-primary);
+  --page-btn-active-text:#ffffff;
+
+  --modal-top-border:var(--brand-primary);
+  --modal-head-bg:#f8fafc;
+  --modal-title-text:var(--brand-primary);
+  --frame-bar-bg:#f1f6fb;
+  --frame-btn-bg:#ffffff;
+  --frame-btn-border:#cbd5e1;
+  --frame-btn-text:#1e293b;
+  --readout-bg:#e3f3fc;
+  --readout-border:#9adcf9;
+  --readout-text:var(--brand-primary);
+  --tbox-bg:#f8fafc;
+  --tbox-text:#1e293b;
+  --tseg-hover-bg:#e3f3fc;
+  --tseg-hover-text:#082f54;
+  --tseg-active-bg:rgba(15,76,129,0.12);
+  --tseg-active-border:var(--brand-primary);
+  --status-ok:#059669;
+}
+
+html[data-theme="dark"] {
+  --bg:#0b1320;
+  --panel:#121e31;
+  --panel-hover:#182942;
+  --card:#121e31;
+  --border:#223552;
+  --row-border:#223552;
+  --text:#f8fafc;
+  --muted:#94abc7;
+  --mono-text:#e2e8f0;
+  --brand-accent-text:var(--brand-accent);
+
+  --ctrl-bg:rgba(11,19,32,0.84);
+  --ctrl-focus-bg:#0b1320;
+  --ctrl-text:#ffffff;
+  --ctrl-placeholder:rgba(203,223,245,0.68);
+  --ctrl-border:rgba(255,255,255,0.28);
+  --kbd-bg:rgba(255,255,255,0.12);
+  --kbd-text:#cbe8fa;
+  --kbd-border:rgba(255,255,255,0.22);
+
+  --toggle-wrap-bg:rgba(11,19,32,0.78);
+  --toggle-wrap-border:rgba(255,255,255,0.28);
+  --toggle-active-bg:var(--brand-accent);
+  --toggle-active-text:#061322;
+
+  --sync-bg:rgba(11,19,32,0.82);
+  --sync-text:#ffffff;
+  --sync-border:var(--brand-accent);
+
+  --stats-accent:var(--brand-accent);
+  --th-bg:#0e1929;
+  --th-text:#94abc7;
+  --th-hover-bg:#14243b;
+  --th-hover-text:#ffffff;
+  --th-active-bg:#112238;
+  --th-active-text:var(--brand-accent);
+
+  --thumb-border:rgba(255,255,255,0.08);
+  --title-hover:var(--brand-accent);
+
+  --sb-bg:rgba(15,76,129,0.28);
+  --sb-border:rgba(0,168,232,0.38);
+  --sb-text:#e2e8f0;
+  --sb-hover-bg:rgba(15,76,129,0.52);
+  --sb-hover-text:#ffffff;
+  --hl-bg:var(--brand-accent);
+  --hl-text:#061322;
+
+  --cc-bg:rgba(0,168,232,0.16);
+  --cc-border:rgba(0,168,232,0.42);
+  --cc-text:var(--brand-accent);
+
+  --btn-sec-bg:#1e314d;
+  --btn-sec-border:transparent;
+  --btn-sec-text:#f8fafc;
+  --btn-sec-hover-bg:#274063;
+  --btn-sec-hover-text:#ffffff;
+
+  --btn-dl-bg:rgba(15,76,129,0.3);
+  --btn-dl-border:rgba(0,168,232,0.45);
+  --btn-dl-text:var(--brand-accent);
+  --btn-dl-hover-bg:var(--brand-accent);
+  --btn-dl-hover-text:#061322;
+
+  --btn-cap-text:#061322;
+  --btn-cap-hover-bg:#38c4f7;
+  --btn-cap-hover-text:#040d18;
+
+  --page-btn-bg:#121e31;
+  --page-btn-border:#263e5f;
+  --page-btn-text:#e2e8f0;
+  --page-btn-hover-bg:#1c304d;
+  --page-btn-active-bg:var(--brand-accent);
+  --page-btn-active-text:#061322;
+
+  --modal-top-border:var(--brand-accent);
+  --modal-head-bg:#152338;
+  --modal-title-text:#ffffff;
+  --frame-bar-bg:#0b1320;
+  --frame-btn-bg:#121e31;
+  --frame-btn-border:#2b4469;
+  --frame-btn-text:#e2e8f0;
+  --readout-bg:rgba(15,76,129,0.28);
+  --readout-border:rgba(0,168,232,0.4);
+  --readout-text:var(--brand-accent);
+  --tbox-bg:#0b1320;
+  --tbox-text:#cbd5e1;
+  --tseg-hover-bg:rgba(15,76,129,0.4);
+  --tseg-hover-text:#ffffff;
+  --tseg-active-bg:rgba(0,168,232,0.18);
+  --tseg-active-border:var(--brand-accent);
+  --status-ok:#34d399;
+}
+
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.45; display:flex; flex-direction:column; height:100vh; height:100dvh; overflow:hidden; transition:background-color 0.18s ease, color 0.18s ease; }
+header { background:var(--brand-primary); border-bottom:3px solid var(--brand-accent); padding:calc(0.8rem + env(safe-area-inset-top)) calc(1.5rem + env(safe-area-inset-right)) 0.8rem calc(1.5rem + env(safe-area-inset-left)); display:flex; flex-wrap:wrap; gap:0.85rem; align-items:center; justify-content:space-between; flex-shrink:0; z-index:30; box-shadow:0 3px 14px rgba(0,0,0,0.18); }
+.brand h1 { font-size:1.22rem; font-weight:700; color:#ffffff; letter-spacing:-0.01em; display:flex; align-items:center; gap:0.55rem; }
+.brand h1::before { content:""; display:inline-block; width:4px; height:1.12rem; background:var(--brand-accent); border-radius:2px; flex-shrink:0; }
+.brand p { font-size:0.76rem; color:rgba(255,255,255,0.86); display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-top:2px; }
+.delta-pill { display:none; background:rgba(255,255,255,0.18); color:#ffffff; border:1px solid rgba(255,255,255,0.5); padding:1px 8px; border-radius:999px; font-size:0.7rem; font-weight:600; }
+.controls { display:flex; flex-wrap:wrap; gap:0.48rem; flex:1; max-width:1180px; justify-content:flex-end; align-items:center; }
+.search-wrap { position:relative; flex:1; min-width:220px; display:flex; align-items:center; }
+.search-wrap input[type="search"]::-webkit-search-cancel-button { -webkit-appearance:none; appearance:none; display:none; }
+.search-wrap input[type="search"] { width:100%; background:var(--ctrl-bg); color:var(--ctrl-text); border:1px solid var(--ctrl-border); padding:0.52rem 2.2rem 0.52rem 0.85rem; border-radius:0.45rem; font-size:0.86rem; outline:none; transition:border-color 0.15s ease, box-shadow 0.15s ease; }
+.search-wrap input[type="search"]::placeholder { color:var(--ctrl-placeholder); }
+.search-wrap input[type="search"]:focus { background:var(--ctrl-focus-bg); border-color:var(--brand-accent); box-shadow:0 0 0 3px rgba(0,168,232,0.28); }
+.search-kbd { position:absolute; right:8px; background:var(--kbd-bg); color:var(--kbd-text); border:1px solid var(--kbd-border); border-radius:4px; padding:1px 6px; font-size:0.7rem; font-family:ui-monospace,monospace; pointer-events:none; }
+.search-wrap input[type="search"]:focus + .search-kbd, .search-wrap.has-val .search-kbd { display:none; }
+.search-clear-btn { position:absolute; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:transparent; color:var(--ctrl-placeholder); font-size:1.1rem; line-height:1; cursor:pointer; display:none; align-items:center; justify-content:center; }
+.search-clear-btn:hover { background:rgba(128,128,128,0.2); color:var(--ctrl-text); }
+.search-wrap.has-val .search-clear-btn { display:inline-flex; }
+select { background:var(--ctrl-bg); color:var(--ctrl-text); border:1px solid var(--ctrl-border); padding:0.52rem 0.8rem; border-radius:0.45rem; font-size:0.85rem; outline:none; cursor:pointer; font-weight:500; }
+select option { background:var(--panel); color:var(--text); }
+.view-toggle { display:flex; background:var(--toggle-wrap-bg); border:1px solid var(--toggle-wrap-border); border-radius:0.45rem; overflow:hidden; }
+.view-btn { background:transparent; color:rgba(255,255,255,0.88); border:none; padding:0.5rem 0.78rem; font-size:0.82rem; font-weight:600; cursor:pointer; }
+.view-btn:hover { color:#ffffff; background:rgba(255,255,255,0.14); }
+.view-btn.active { background:var(--toggle-active-bg); color:var(--toggle-active-text); font-weight:700; }
+.header-util-btn { background:var(--toggle-wrap-bg); color:#ffffff; border:1px solid var(--toggle-wrap-border); padding:0.5rem 0.75rem; border-radius:0.45rem; font-size:0.82rem; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:0.35rem; white-space:nowrap; transition:background 0.15s ease, border-color 0.15s ease; }
+.header-util-btn:hover { background:rgba(255,255,255,0.18); border-color:#ffffff; }
+.sync-btn { background:var(--sync-bg); color:var(--sync-text); border:1px solid var(--sync-border); padding:0.5rem 0.88rem; border-radius:0.45rem; font-size:0.82rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:0.35rem; white-space:nowrap; transition:filter 0.15s ease; }
+.sync-btn:hover { filter:brightness(1.08); }
+.sync-btn:disabled { opacity:0.65; cursor:wait; }
+@keyframes spin { 100% { transform:rotate(360deg); } }
+.spin-icon { display:inline-block; }
+.syncing .spin-icon { animation:spin 0.9s linear infinite; }
+main.content { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:1.15rem calc(1.5rem + env(safe-area-inset-right)) calc(1.75rem + env(safe-area-inset-bottom)) calc(1.5rem + env(safe-area-inset-left)); display:flex; flex-direction:column; max-width:1850px; width:100%; margin:0 auto; }
+
+/* Setup Wizard Card */
+.wizard-wrap { max-width:760px; width:100%; margin:0.75rem auto; background:var(--panel); border:1px solid var(--border); border-top:4px solid var(--brand-primary); border-radius:0.85rem; padding:1.6rem 1.85rem; box-shadow:0 12px 32px rgba(0,0,0,0.08); display:none; flex-direction:column; gap:1.15rem; }
+.wizard-head h2 { font-size:1.3rem; color:var(--text); margin-bottom:0.25rem; }
+.wizard-head p { font-size:0.87rem; color:var(--muted); }
+.wizard-steps { display:flex; flex-direction:column; gap:0.85rem; background:var(--bg); border:1px solid var(--border); border-radius:0.65rem; padding:1rem 1.15rem; }
+.w-step { display:flex; gap:0.75rem; align-items:flex-start; font-size:0.85rem; }
+.w-num { width:24px; height:24px; border-radius:50%; background:var(--brand-primary); color:#fff; font-weight:700; font-size:0.78rem; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+.w-body { flex:1; color:var(--text); min-width:0; word-break:break-word; }
+.w-body strong { font-weight:650; }
+.w-body a { color:var(--brand-accent-text); font-weight:600; text-decoration:underline; }
+.scope-pills { display:inline-flex; gap:0.35rem; flex-wrap:wrap; margin-top:0.25rem; }
+.scope-pill { font-family:ui-monospace,monospace; font-size:0.74rem; background:var(--panel); border:1px solid var(--border); padding:1px 7px; border-radius:4px; font-weight:600; color:var(--brand-accent-text); }
+.wizard-grid { display:grid; grid-template-columns:1fr; gap:0.9rem; }
+.field-group { display:flex; flex-direction:column; gap:0.35rem; min-width:0; }
+.field-group label { font-size:0.8rem; font-weight:650; color:var(--text); }
+.field-group input[type="text"], .field-group input[type="password"] { width:100%; background:var(--bg); color:var(--text); border:1px solid var(--border); padding:0.58rem 0.85rem; border-radius:0.45rem; font-size:0.88rem; outline:none; }
+.field-group input:focus { border-color:var(--brand-accent); box-shadow:0 0 0 3px rgba(0,168,232,0.2); }
+.filename-input-wrap { display:flex; align-items:stretch; background:var(--bg); border:1px solid var(--border); border-radius:0.45rem; overflow:hidden; transition:border-color 0.15s ease, box-shadow 0.15s ease; }
+.filename-input-wrap:focus-within { border-color:var(--brand-accent); box-shadow:0 0 0 3px rgba(0,168,232,0.2); }
+.filename-input-wrap input[type="text"] { border:none !important; box-shadow:none !important; background:transparent; padding-right:0.35rem; }
+.filename-ext { display:inline-flex; align-items:center; padding:0 0.75rem; background:var(--panel); border-left:1px solid var(--border); font-family:ui-monospace,monospace; font-size:0.8rem; font-weight:600; color:var(--muted); user-select:none; }
+.brand-row { display:grid; grid-template-columns:1.25fr 1fr auto auto; gap:0.7rem; align-items:end; }
+.color-pick-wrap { display:flex; flex-direction:column; gap:0.35rem; }
+.color-pick-box { display:flex; align-items:center; gap:0.4rem; background:var(--bg); border:1px solid var(--border); border-radius:0.45rem; padding:0.32rem 0.55rem; height:38px; }
+.color-pick-box input[type="color"] { width:26px; height:24px; border:none; background:transparent; cursor:pointer; }
+.color-pick-box span { font-family:ui-monospace,monospace; font-size:0.75rem; color:var(--muted); }
+.auto-save-check { display:flex; align-items:center; gap:0.55rem; font-size:0.83rem; color:var(--text); cursor:pointer; user-select:none; background:var(--bg); border:1px solid var(--border); padding:0.62rem 0.85rem; border-radius:0.5rem; }
+.auto-save-check input[type="checkbox"] { width:16px; height:16px; accent-color:var(--brand-primary); cursor:pointer; flex-shrink:0; }
+.wizard-progress { display:none; flex-direction:column; gap:0.45rem; background:var(--bg); border:1px solid var(--border); border-radius:0.55rem; padding:0.9rem 1rem; }
+.prog-bar-track { width:100%; height:8px; background:var(--border); border-radius:999px; overflow:hidden; }
+.prog-bar-fill { width:0%; height:100%; background:var(--brand-accent); transition:width 0.2s ease; }
+.prog-text { font-size:0.82rem; font-weight:600; color:var(--brand-accent-text); }
+.wizard-status { font-size:0.83rem; font-weight:600; color:#dc2626; min-height:1.1rem; }
+.wizard-status.ok { color:var(--status-ok); }
+.wizard-footer { display:flex; justify-content:space-between; align-items:center; gap:0.75rem; flex-wrap:wrap; padding-top:0.15rem; }
+.privacy-note { font-size:0.76rem; color:var(--muted); max-width:420px; }
+
+/* Directory Workspace */
+.stats-bar { margin-bottom:0.9rem; font-size:0.85rem; color:var(--muted); display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; justify-content:space-between; background:var(--panel); padding:0.55rem 1rem; border-radius:0.5rem; border:1px solid var(--border); border-left:4px solid var(--stats-accent); flex-shrink:0; }
+.per-page-wrap { display:inline-flex; align-items:center; gap:0.45rem; font-size:0.8rem; color:var(--muted); }
+.per-page-select { background:var(--bg); color:var(--text); border:1px solid var(--border); padding:0.28rem 0.55rem; border-radius:0.38rem; font-size:0.8rem; font-weight:600; cursor:pointer; }
+.table-wrap { width:100%; border:1px solid var(--border); border-radius:0.6rem; background:var(--panel); overflow-x:auto; -webkit-overflow-scrolling:touch; }
+table.video-table { width:100%; border-collapse:collapse; font-size:0.86rem; text-align:left; }
+table.video-table th { position:sticky; top:-1.15rem; z-index:15; background:var(--th-bg); color:var(--th-text); font-weight:700; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em; padding:0.78rem 0.9rem; border-bottom:1px solid var(--border); cursor:pointer; user-select:none; white-space:nowrap; box-shadow:0 1px 0 var(--border); }
+table.video-table th:hover { color:var(--th-hover-text); background:var(--th-hover-bg); }
+table.video-table th.active-sort { color:var(--th-active-text); background:var(--th-active-bg); box-shadow:0 2px 0 var(--brand-accent); }
+.sort-arrow { display:inline-block; margin-left:5px; font-size:0.7rem; color:var(--brand-accent); }
+table.video-table td { padding:0.64rem 0.9rem; border-bottom:1px solid var(--row-border); vertical-align:middle; }
+table.video-table tr:last-child td { border-bottom:none; }
+table.video-table tr:hover td { background:var(--panel-hover); }
+.row-thumb { width:152px; height:86px; border-radius:6px; background:#050a12; overflow:hidden; position:relative; cursor:pointer; flex-shrink:0; border:1px solid var(--thumb-border); transition:transform 0.16s ease, border-color 0.16s ease; user-select:none; }
+.row-thumb:hover { transform:scale(1.05); border-color:var(--brand-accent); z-index:5; }
+.row-thumb img { width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
+.hover-preview-el { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border:0; pointer-events:none; background:#000; z-index:2; }
+.scrub-zone { position:absolute; left:0; right:0; bottom:0; height:24px; background:linear-gradient(to top, rgba(6,13,24,0.92), rgba(6,13,24,0.22) 75%, transparent); z-index:6; display:flex; align-items:flex-end; padding:0 6px 5px; cursor:ew-resize; opacity:0; transition:opacity 0.15s ease; touch-action:none; }
+.row-thumb:hover .scrub-zone, .thumb-wrap:hover .scrub-zone, .scrub-zone.dragging { opacity:1; }
+.scrub-track { position:relative; width:100%; height:5px; background:rgba(255,255,255,0.32); border-radius:999px; transition:height 0.1s ease; pointer-events:none; }
+.scrub-zone:hover .scrub-track, .scrub-zone.dragging .scrub-track { height:7px; }
+.scrub-fill { position:relative; height:100%; width:0%; background:var(--brand-accent); border-radius:999px; }
+.scrub-handle { position:absolute; right:-6px; top:50%; transform:translateY(-50%); width:12px; height:12px; border-radius:50%; background:#ffffff; border:2px solid var(--brand-primary); pointer-events:none; }
+.scrub-time-pill { position:absolute; bottom:23px; right:6px; background:rgba(11,19,32,0.92); color:#ffffff; border:1px solid rgba(255,255,255,0.35); padding:1px 6px; border-radius:4px; font-size:0.68rem; font-weight:700; font-variant-numeric:tabular-nums; z-index:6; cursor:ew-resize; user-select:none; opacity:0; transition:opacity 0.15s ease; }
+.row-thumb:hover .scrub-time-pill, .thumb-wrap:hover .scrub-time-pill { opacity:1; }
+.thumb-wrap:hover .duration-badge { opacity:0; }
+.title-cell { display:flex; align-items:flex-start; gap:0.9rem; min-width:300px; }
+.title-info { display:flex; flex-direction:column; gap:0.2rem; flex:1; min-width:0; }
+.row-title { font-weight:650; color:var(--text); cursor:pointer; font-size:0.94rem; }
+.row-title:hover { color:var(--title-hover); }
+.row-sub { font-size:0.76rem; color:var(--muted); display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden; max-width:650px; }
+.soundbite-list { display:flex; flex-direction:column; gap:0.3rem; margin-top:0.35rem; }
+.soundbite-pill { display:inline-flex; align-items:center; gap:0.45rem; background:var(--sb-bg); border:1px solid var(--sb-border); color:var(--sb-text); padding:0.28rem 0.55rem; border-radius:0.4rem; font-size:0.76rem; cursor:pointer; width:fit-content; max-width:100%; }
+.soundbite-pill:hover { background:var(--sb-hover-bg); border-color:var(--brand-accent); color:var(--sb-hover-text); }
+.sb-time { background:var(--brand-primary); color:#ffffff; font-weight:700; font-size:0.7rem; padding:1px 6px; border-radius:3px; font-variant-numeric:tabular-nums; flex-shrink:0; pointer-events:none; }
+.sb-text { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; pointer-events:none; }
+mark.sb-hl { background:var(--hl-bg); color:var(--hl-text); font-weight:700; padding:0 3px; border-radius:2px; }
+.mono-num { font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--mono-text); font-weight:500; }
+.cc-pill { display:inline-block; background:var(--cc-bg); border:1px solid var(--cc-border); color:var(--cc-text); font-size:0.66rem; padding:0px 6px; border-radius:4px; margin-left:6px; font-weight:700; vertical-align:middle; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(290px, 1fr)); gap:1.1rem; }
+.card { background:var(--card); border:1px solid var(--border); border-radius:0.7rem; overflow:hidden; display:flex; flex-direction:column; transition:border-color 0.15s ease, transform 0.15s ease; }
+.card:hover { border-color:var(--brand-accent); transform:translateY(-1px); }
+.thumb-wrap { position:relative; aspect-ratio:16/9; background:#050a12; cursor:pointer; overflow:hidden; user-select:none; border-bottom:1px solid var(--border); }
+.thumb-wrap img { width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
+.duration-badge { position:absolute; bottom:8px; right:8px; background:rgba(6,13,24,0.85); color:#ffffff; padding:2px 7px; border-radius:4px; font-size:0.74rem; font-weight:600; z-index:3; pointer-events:none; }
+.transcript-badge { position:absolute; top:8px; left:8px; background:var(--brand-primary); border:1px solid rgba(255,255,255,0.45); color:#ffffff; padding:2px 7px; border-radius:4px; font-size:0.68rem; font-weight:700; z-index:3; pointer-events:none; }
+.card-body { padding:0.9rem; display:flex; flex-direction:column; gap:0.45rem; flex:1; min-width:0; }
+.card-title { font-size:0.96rem; font-weight:650; color:var(--text); cursor:pointer; }
+.card-title:hover { color:var(--title-hover); }
+.card-meta-row { display:flex; gap:0.75rem; font-size:0.75rem; color:var(--muted); flex-wrap:wrap; margin-top:0.2rem; }
+.card-footer { margin-top:auto; padding-top:0.65rem; border-top:1px solid var(--row-border); display:flex; flex-direction:column; gap:0.5rem; font-size:0.75rem; color:var(--muted); }
+.card-dates { display:flex; justify-content:space-between; width:100%; }
+.action-group { display:flex; gap:0.38rem; flex-wrap:wrap; align-items:center; }
+.btn { background:var(--brand-primary); color:#ffffff; border:1px solid rgba(255,255,255,0.2); padding:0.4rem 0.78rem; border-radius:0.4rem; font-size:0.78rem; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:0.35rem; white-space:nowrap; font-weight:600; transition:filter 0.14s ease, background 0.14s ease; }
+.btn:hover { filter:brightness(1.12); }
+.btn-lg { padding:0.58rem 1.15rem; font-size:0.88rem; }
+.btn-secondary { background:var(--btn-sec-bg); border:1px solid var(--btn-sec-border); color:var(--btn-sec-text); }
+.btn-secondary:hover { background:var(--btn-sec-hover-bg); color:var(--btn-sec-hover-text); filter:none; }
+.btn-danger { background:rgba(220,38,38,0.12); border:1px solid rgba(220,38,38,0.35); color:#ef4444; }
+.btn-danger:hover { background:#dc2626; color:#ffffff; filter:none; }
+.btn-dl { background:var(--btn-dl-bg); color:var(--btn-dl-text); border:1px solid var(--btn-dl-border); }
+.btn-dl:hover { background:var(--btn-dl-hover-bg); border-color:var(--btn-dl-hover-bg); color:var(--btn-dl-hover-text); filter:none; }
+.btn-copied { background:#059669 !important; border-color:#059669 !important; color:#ffffff !important; }
+.btn-capture { background:var(--brand-accent); border:1px solid var(--brand-accent); color:var(--btn-cap-text); padding:0.42rem 0.85rem; font-size:0.8rem; font-weight:700; }
+
+.pagination-bar { margin-top:1.15rem; padding:0.75rem 1rem; background:var(--panel); border:1px solid var(--border); border-radius:0.55rem; display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; justify-content:space-between; flex-shrink:0; }
+.page-status { font-size:0.82rem; color:var(--muted); font-variant-numeric:tabular-nums; }
+.page-controls { display:flex; align-items:center; gap:0.32rem; flex-wrap:wrap; }
+.page-btn { background:var(--page-btn-bg); color:var(--page-btn-text); border:1px solid var(--page-btn-border); min-width:36px; height:34px; padding:0 0.65rem; border-radius:0.38rem; font-size:0.8rem; font-weight:600; font-variant-numeric:tabular-nums; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; }
+.page-btn:hover:not(:disabled):not(.active) { background:var(--page-btn-hover-bg); border-color:var(--brand-accent); }
+.page-btn.active { background:var(--page-btn-active-bg); border-color:var(--page-btn-active-bg); color:var(--page-btn-active-text); font-weight:700; cursor:default; }
+.page-btn:disabled { opacity:0.42; cursor:not-allowed; }
+.page-ellipsis { color:var(--muted); padding:0 0.3rem; font-size:0.85rem; user-select:none; }
+.empty-state { padding:2.5rem 1rem; text-align:center; color:var(--muted); font-size:0.92rem; }
+
+/* Modals */
+.modal-backdrop { position:fixed; inset:0; background:rgba(8,14,24,0.78); display:none; align-items:center; justify-content:center; padding:1rem; z-index:100; backdrop-filter:blur(3px); }
+.modal-backdrop.open { display:flex; }
+.modal { background:var(--panel); border:1px solid var(--border); border-top:4px solid var(--modal-top-border); border-radius:0.75rem; max-width:1060px; width:100%; max-height:94vh; max-height:92dvh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 24px 55px rgba(0,0,0,0.45); }
+.modal-md { max-width:660px; }
+.modal-header { background:var(--modal-head-bg); padding:0.85rem 1.15rem; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; gap:0.65rem; flex-wrap:wrap; }
+.modal-title-wrap { display:flex; flex-direction:column; gap:0.15rem; flex:1; min-width:160px; overflow:hidden; }
+.modal-header h2 { font-size:1.02rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--modal-title-text); font-weight:700; }
+.modal-file-sub { font-size:0.75rem; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.modal-actions { display:flex; align-items:center; gap:0.4rem; flex-shrink:0; flex-wrap:wrap; }
+.close-btn { background:transparent; border:none; color:var(--muted); font-size:1.7rem; cursor:pointer; line-height:1; padding:0 0.3rem; }
+.modal-body { padding:1rem 1.15rem; overflow-y:auto; -webkit-overflow-scrolling:touch; display:flex; flex-direction:column; gap:0.85rem; }
+.player-wrap { aspect-ratio:16/9; width:100%; background:#000; border-radius:0.5rem; overflow:hidden; position:relative; display:flex; align-items:center; justify-content:center; border:1px solid var(--border); flex-shrink:0; }
+.player-wrap iframe, .player-wrap video { width:100%; height:100%; border:0; display:block; background:#000; }
+.stream-loader { color:var(--brand-accent); font-size:0.88rem; font-weight:500; text-align:center; padding:1rem; }
+.frame-controls-bar { background:var(--frame-bar-bg); border:1px solid var(--border); border-radius:0.5rem; padding:0.55rem 0.85rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.65rem; }
+.frame-btn-group { display:flex; align-items:center; gap:0.38rem; flex-wrap:wrap; }
+.btn-frame { background:var(--frame-btn-bg); color:var(--frame-btn-text); border:1px solid var(--frame-btn-border); padding:0.38rem 0.68rem; border-radius:0.38rem; font-size:0.78rem; font-weight:600; cursor:pointer; font-variant-numeric:tabular-nums; }
+.btn-frame:hover { background:var(--brand-primary); border-color:var(--brand-accent); color:#ffffff; }
+.frame-readout { font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; font-size:0.78rem; color:var(--readout-text); background:var(--readout-bg); border:1px solid var(--readout-border); padding:0.28rem 0.65rem; border-radius:0.35rem; white-space:nowrap; font-weight:700; }
+.frame-hint { font-size:0.74rem; color:var(--muted); }
+.capture-status { font-size:0.78rem; color:var(--status-ok); font-weight:700; }
+.transcript-box { background:var(--tbox-bg); border:1px solid var(--border); border-radius:0.5rem; padding:0.6rem; max-height:220px; overflow-y:auto; -webkit-overflow-scrolling:touch; font-size:0.84rem; color:var(--tbox-text); display:flex; flex-direction:column; gap:0.25rem; }
+.t-seg { display:flex; gap:0.65rem; align-items:baseline; padding:0.35rem 0.5rem; border-left:3px solid transparent; border-radius:0.35rem; cursor:pointer; }
+.t-seg:hover { background:var(--tseg-hover-bg); color:var(--tseg-hover-text); }
+.t-seg.active-cue { background:var(--tseg-active-bg); border-left-color:var(--tseg-active-border); color:var(--text); font-weight:600; }
+.t-seg-time { color:var(--brand-accent-text); font-weight:700; font-size:0.75rem; font-variant-numeric:tabular-nums; flex-shrink:0; min-width:42px; pointer-events:none; }
+.t-seg-text { pointer-events:none; }
+.export-card { background:var(--bg); border:1px solid var(--border); border-radius:0.55rem; padding:0.9rem 1rem; display:flex; flex-direction:column; gap:0.55rem; }
+.export-card h4 { font-size:0.9rem; color:var(--text); }
+.export-card p { font-size:0.79rem; color:var(--muted); }
+
+/* Mobile & iPhone Responsive Optimizations */
+@media (max-width: 760px) {
+  header { padding:calc(0.65rem + env(safe-area-inset-top)) 0.9rem 0.7rem; gap:0.6rem; }
+  .brand h1 { font-size:1.08rem; }
+  .brand p { font-size:0.71rem; }
+  .controls { width:100%; justify-content:space-between; gap:0.42rem; }
+  .search-wrap { flex:1 1 100%; order:1; min-width:100%; }
+  #sortSelect { flex:1 1 auto; order:2; min-width:0; max-width:48%; }
+  .view-toggle { order:3; }
+  #themeToggleBtn { order:4; padding:0.48rem 0.62rem; }
+  #syncNowBtn { order:5; padding:0.48rem 0.72rem; }
+  #settingsOpenBtn { order:6; padding:0.48rem 0.62rem; }
+  .search-kbd, .frame-hint { display:none !important; }
+
+  /* 16px font-size prevents iOS Safari from auto-zooming the viewport on focus */
+  .search-wrap input[type="search"],
+  select,
+  .field-group input[type="text"],
+  .field-group input[type="password"] { font-size:16px !important; }
+
+  main.content { padding:0.8rem 0.85rem calc(1.5rem + env(safe-area-inset-bottom)); }
+  .wizard-wrap { padding:1.2rem 1.1rem; margin:0.25rem auto; }
+  .brand-row { grid-template-columns:1fr 1fr; }
+  .brand-row .field-group { grid-column:1 / -1; }
+  .wizard-footer .btn-lg { width:100%; }
+  .grid { grid-template-columns:1fr; gap:0.9rem; }
+  .pagination-bar { justify-content:center; text-align:center; }
+  .page-controls { justify-content:center; width:100%; }
+
+  .modal-backdrop { padding:0.45rem; }
+  .modal { max-height:95dvh; border-radius:0.65rem; }
+  .modal-header { padding:0.7rem 0.85rem; }
+  .modal-body { padding:0.8rem 0.85rem; }
+  .modal-actions { width:100%; justify-content:flex-start; }
+  .frame-controls-bar { justify-content:center; padding:0.5rem; }
+  .frame-btn-group { width:100%; justify-content:space-between; }
+  .btn-frame { flex:1; text-align:center; padding:0.42rem 0.35rem; font-size:0.74rem; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <h1 id="brandHeading">Vimeo Video Directory</h1>
+    <p>
+      <span id="syncInfo">Setup required</span>
+      <span id="deltaBadge" class="delta-pill"></span>
+    </p>
+  </div>
+  <div class="controls" id="headerControls" style="display:none;">
+    <div class="search-wrap" id="searchWrap">
+      <input type="search" id="searchInput" placeholder="Search videos, soundbites, or tags...">
+      <span class="search-kbd">/</span>
+      <button type="button" class="search-clear-btn" id="searchClearBtn" title="Clear search">&times;</button>
+    </div>
+    <select id="sortSelect">
+      <option value="created:desc">Newest First</option>
+      <option value="created:asc">Oldest First</option>
+      <option value="modified:desc">Modified: Newest</option>
+      <option value="modified:asc">Modified: Oldest</option>
+      <option value="size:desc">Size: Largest</option>
+      <option value="size:asc">Size: Smallest</option>
+      <option value="duration:desc">Longest</option>
+      <option value="duration:asc">Shortest</option>
+      <option value="views:desc">Most Viewed</option>
+      <option value="views:asc">Least Viewed</option>
+      <option value="title:asc">Title: A–Z</option>
+      <option value="title:desc">Title: Z–A</option>
+    </select>
+    <div class="view-toggle">
+      <button class="view-btn active" id="listViewBtn">☰ List</button>
+      <button class="view-btn" id="gridViewBtn">⊞ Grid</button>
+    </div>
+    <button class="header-util-btn" id="themeToggleBtn" title="Switch between Light Mode and Dark Mode">☾</button>
+    <button class="sync-btn" id="syncNowBtn" title="Pull latest Vimeo uploads & captions"><span class="spin-icon">↻</span> <span id="syncBtnLabel">Sync</span></button>
+    <button class="header-util-btn" id="settingsOpenBtn" title="Directory Settings, Branding & HTML Export">⚙</button>
+  </div>
+</header>
+
+<main class="content" id="mainScrollArea">
+  <!-- First-Time Setup Wizard -->
+  <section class="wizard-wrap" id="setupWizard">
+    <div class="wizard-head">
+      <h2>Connect Your Vimeo Library</h2>
+      <p>Build a fast, searchable video &amp; soundbite directory directly in your browser on desktop or mobile.</p>
+    </div>
+
+    <div class="wizard-steps">
+      <div class="w-step">
+        <span class="w-num">1</span>
+        <div class="w-body">
+          Open <a href="https://developer.vimeo.com/apps/new" target="_blank" rel="noopener">developer.vimeo.com/apps/new</a>, enter any App Name (e.g., <strong>Video Directory</strong>), select <strong>No</strong> for external account access, and click <strong>Create App</strong>.
+        </div>
+      </div>
+      <div class="w-step">
+        <span class="w-num">2</span>
+        <div class="w-body">
+          Scroll down to <strong>Generate an Access Token</strong>, choose <strong>Authenticated (you)</strong>, check these three read-only scopes, and click <strong>Generate</strong>:
+          <div class="scope-pills">
+            <span class="scope-pill">✓ Public</span>
+            <span class="scope-pill">✓ Private</span>
+            <span class="scope-pill">✓ Video Files</span>
+          </div>
+        </div>
+      </div>
+      <div class="w-step">
+        <span class="w-num">3</span>
+        <div class="w-body">
+          Paste your token below, customize your title &amp; brand colors, and tap <strong>Connect &amp; Build Directory</strong>.
+        </div>
+      </div>
+    </div>
+
+    <div class="wizard-grid">
+      <div class="field-group">
+        <label for="wizTokenInput">Vimeo Personal Access Token (Read-Only)</label>
+        <input type="password" id="wizTokenInput" placeholder="Paste your 32-character Vimeo token..." autocomplete="off">
+      </div>
+      <div class="brand-row">
+        <div class="field-group">
+          <label for="wizTitleInput">Directory Title</label>
+          <input type="text" id="wizTitleInput" value="Vimeo Video Directory" placeholder="e.g., Kirkwood Video Directory">
+        </div>
+        <div class="field-group">
+          <label for="wizFileNameInput">HTML File Name</label>
+          <div class="filename-input-wrap">
+            <input type="text" id="wizFileNameInput" value="Vimeo Video Directory" placeholder="Kirkwood Video Directory">
+            <span class="filename-ext">.html</span>
+          </div>
+        </div>
+        <div class="color-pick-wrap">
+          <label style="font-size:0.8rem;font-weight:650;">Primary</label>
+          <div class="color-pick-box">
+            <input type="color" id="wizPrimaryColor" value="#005399">
+            <span id="wizPrimaryHex">#005399</span>
+          </div>
+        </div>
+        <div class="color-pick-wrap">
+          <label style="font-size:0.8rem;font-weight:650;">Accent</label>
+          <div class="color-pick-box">
+            <input type="color" id="wizAccentColor" value="#00aeef">
+            <span id="wizAccentHex">#00aeef</span>
+          </div>
+        </div>
+      </div>
+
+      <label class="auto-save-check" for="wizAutoExportCheck">
+        <input type="checkbox" id="wizAutoExportCheck">
+        <span>Also download a standalone <strong id="wizAutoExportNamePreview">Vimeo Video Directory.html</strong> desktop file when sync finishes</span>
+      </label>
+    </div>
+
+    <div class="wizard-progress" id="wizProgressWrap">
+      <div class="prog-text" id="wizProgressLabel">Verifying Vimeo token...</div>
+      <div class="prog-bar-track"><div class="prog-bar-fill" id="wizProgressBar"></div></div>
+    </div>
+
+    <div class="wizard-status" id="wizStatusMsg"></div>
+
+    <div class="wizard-footer">
+      <span class="privacy-note">🔒 Your token &amp; catalog stay 100% inside this device's private browser storage and only ever talk directly to <code>api.vimeo.com</code>.</span>
+      <button type="button" class="btn btn-lg" id="wizConnectBtn">Connect &amp; Build Directory →</button>
+    </div>
+  </section>
+
+  <!-- Active Directory Workspace -->
+  <div id="directoryWorkspace" style="display:none; flex-direction:column;">
+    <div class="stats-bar">
+      <span id="resultCount">Loading...</span>
+      <label class="per-page-wrap">
+        <span>Show</span>
+        <select id="perPageSelect" class="per-page-select">
+          <option value="25">25</option>
+          <option value="50" selected>50</option>
+          <option value="100">100</option>
+          <option value="250">250</option>
+        </select>
+        <span>per page</span>
+      </label>
+    </div>
+    <div id="listContainer" class="table-wrap">
+      <table class="video-table">
+        <thead>
+          <tr>
+            <th data-field="title" data-default-dir="asc">Video / Title <span class="sort-arrow"></span></th>
+            <th data-field="duration" data-default-dir="desc">Duration <span class="sort-arrow"></span></th>
+            <th data-field="size" data-default-dir="desc">Upload Size <span class="sort-arrow"></span></th>
+            <th data-field="views" data-default-dir="desc">Views <span class="sort-arrow"></span></th>
+            <th data-field="created" data-default-dir="desc">Uploaded <span class="sort-arrow"></span></th>
+            <th data-field="modified" data-default-dir="desc">Modified <span class="sort-arrow"></span></th>
+            <th style="cursor:default;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="videoTableBody"></tbody>
+      </table>
+    </div>
+    <div id="gridContainer" class="grid" style="display:none;"></div>
+    <div id="emptyState" class="empty-state" style="display:none;">No matching videos found.</div>
+    <div id="paginationBar" class="pagination-bar" style="display:none;">
+      <span id="pageStatus" class="page-status"></span>
+      <div id="pageControls" class="page-controls"></div>
+    </div>
+  </div>
+</main>
+
+<!-- Video Player Modal -->
+<div class="modal-backdrop" id="videoModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <h2 id="modalTitle">Video</h2>
+        <span id="modalFileSub" class="modal-file-sub" style="display:none;"></span>
+      </div>
+      <button class="close-btn" id="closeModal">&times;</button>
+      <div class="modal-actions">
+        <span id="captureStatus" class="capture-status"></span>
+        <button class="btn btn-secondary" id="modalCopyUrlBtn">Copy URL</button>
+        <button class="btn btn-secondary" id="modalCopyEmbedBtn">Copy Embed</button>
+        <button class="btn btn-dl" id="modalDownloadMp4Btn" style="display:none;" title="Download highest-resolution source .MP4 file">⬇ MP4</button>
+        <button class="btn btn-dl" id="modalDownloadSrtBtn" style="display:none;" title="Download SubRip .SRT caption file">⬇ SRT</button>
+        <button class="btn btn-dl" id="modalDownloadTxtBtn" style="display:none;" title="Download plain-text .TXT transcript">⬇ TXT</button>
+        <button class="btn btn-capture" id="captureStillBtn" title="Download a full-resolution .JPG still of the current video frame">📸 Still (.JPG)</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="player-wrap" id="modalPlayer"></div>
+      <div class="frame-controls-bar">
+        <div class="frame-btn-group">
+          <button class="btn-frame" id="stepBack10Btn">⏮ -10f</button>
+          <button class="btn-frame" id="stepBack1Btn">◀ -1f</button>
+          <button class="btn-frame" id="stepPlayPauseBtn">⏯ Play</button>
+          <button class="btn-frame" id="stepFwd1Btn">+1f ▶</button>
+          <button class="btn-frame" id="stepFwd10Btn">+10f ⏭</button>
+        </div>
+        <div class="frame-readout" id="frameReadout">0:00.00 • Frame 0</div>
+        <div class="frame-hint">Keys: <strong>←/→</strong> or <strong>,/.</strong> (1f) • <strong>Shift+←/→</strong> (10f) • <strong>Space</strong> (Play)</div>
+      </div>
+      <div id="modalMeta" style="font-size:0.82rem;color:var(--brand-accent-text);font-weight:600;"></div>
+      <div id="modalDesc" style="font-size:0.86rem;color:var(--muted);"></div>
+      <div id="modalTranscriptWrap" style="display:none;">
+        <h4 style="font-size:0.86rem;color:var(--brand-accent-text);margin-bottom:0.4rem;">Interactive Transcript <span style="font-weight:400;font-size:0.76rem;color:var(--muted);">(Tap any line to jump)</span></h4>
+        <div class="transcript-box" id="modalTranscript"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Settings & Team Export Modal -->
+<div class="modal-backdrop" id="settingsModal">
+  <div class="modal modal-md">
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <h2>Directory Settings &amp; HTML Export</h2>
+        <span id="settingsAccountSub" class="modal-file-sub">Connected to Vimeo</span>
+      </div>
+      <button class="close-btn" id="closeSettingsModal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="brand-row">
+        <div class="field-group">
+          <label for="setTitleInput">Directory Title</label>
+          <input type="text" id="setTitleInput">
+        </div>
+        <div class="field-group">
+          <label for="setFileNameInput">HTML File Name</label>
+          <div class="filename-input-wrap">
+            <input type="text" id="setFileNameInput">
+            <span class="filename-ext">.html</span>
+          </div>
+        </div>
+        <div class="color-pick-wrap">
+          <label style="font-size:0.8rem;font-weight:650;">Primary</label>
+          <div class="color-pick-box">
+            <input type="color" id="setPrimaryColor">
+            <span id="setPrimaryHex"></span>
+          </div>
+        </div>
+        <div class="color-pick-wrap">
+          <label style="font-size:0.8rem;font-weight:650;">Accent</label>
+          <div class="color-pick-box">
+            <input type="color" id="setAccentColor">
+            <span id="setAccentHex"></span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;">
+        <button type="button" class="btn" id="saveBrandingBtn">Save Branding &amp; File Name</button>
+      </div>
+
+      <div class="export-card">
+        <h4>📦 Export Standalone Pre-Loaded HTML</h4>
+        <p>Packs your synced catalog, captions, custom branding, and read-only token into your custom-named <code>.html</code> file so teammates can open it offline/online with zero setup.</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;margin-top:0.2rem;">
+          <span id="exportStatusMsg" class="capture-status"></span>
+          <button type="button" class="btn" id="exportTeamHtmlBtn">⬇ Download HTML File</button>
+        </div>
+      </div>
+
+      <div class="export-card">
+        <h4>🔑 Vimeo Token &amp; Local Cache</h4>
+        <p>Switch Vimeo accounts or clear the locally cached token and video catalog from this device.</p>
+        <div style="display:flex;justify-content:flex-end;">
+          <button type="button" class="btn btn-danger" id="disconnectAccountBtn">Disconnect &amp; Clear Device Data</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="bakedConfigScript">
+const BAKED_CONFIG = null;
+const COMPRESSED_CATALOG = "";
+</script>
+<script id="appLogicScript">
+const INITIAL_BODY_MARKUP = document.body.innerHTML.split('<script id="bakedConfigScript">')[0].trim();
+
+const THUMB_PREFIX = "https://i.vimeocdn.com/video/";
+const LINK_PREFIX = "https://vimeo.com/";
+const EMBED_PREFIX = "https://player.vimeo.com/video/";
+const DELTA_COOLDOWN_MS = 10 * 60 * 1000;
+const TITLE_COLLATOR = new Intl.Collator("en", { numeric: true, sensitivity: "base" });
+const IS_MOBILE_SCREEN = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+
+const SYNC_FIELDS = "uri,name,description,link,player_embed_url,embed.html,duration,created_time,modified_time,pictures.base_link,tags.name,privacy.view,stats.plays,current_version.filename,files.size,files.rendition,files.width,files.fps,download.rendition,download.link,upload.size,metadata.connections.texttracks";
+const STREAM_FIELDS = "current_version.filename,files.link,files.width,files.height,files.type,files.rendition,files.fps,download.link,download.width,download.size,download.rendition,download.type,metadata.connections.texttracks";
+const VALID_MP4_RENDITIONS = new Set(["2160p", "1440p", "1080p", "720p", "540p", "360p", "240p"]);
+const HTML_ESCAPES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+
+const FILENAME_SPOT_TAG_RE = /(?:^|[_\-\s])(0?6|10|15|20|30|45|60|90)s?(?=[_\-\s.]|$)/i;
+const POSITIVE_AD_RE = /(?:^|[\s_\-([/])(?::0?6|:10|:15|:20|:30|:45|:60|:90|0?6s|10s|15s|30s|60s|15\s*sec|30\s*sec|60\s*sec|tv|tv\s*ad|tv\s*spot|spot|commercial|broadcast|ott|ctv|pre[\s\-]?roll|paid\s*media|isci)(?:$|[\s_\-)\],.])/i;
+const NON_AD_META_RE = /\b(?:b[\s\-]?roll|broll|raw|rough\s*cut|stringout|selects|interview|soundbite|testimonial\s*full|zoom|webinar|lecture|seminar|workshop|panel|meeting|board\s*of\s*trustees|commencement|graduation|ceremony|convocation|keynote|livestream|live\s*stream|podcast|tutorial|how[\s\-]?to|walkthrough|training|orientation|screen\s*recording|screencast|recap|highlights?|behind\s*the\s*scenes|bts|bloopers?|outtakes?)\b/i;
+const AD_INTENT_WORDS_RE = /\b(?:tv\s+ads?|tv\s+spots?|tv\s+commercials?|commercials?|broadcast\s+ads?|broadcast\s+spots?|video\s+ads?|ad\s+spots?|tv|ads?|spots?|broadcast|ott|ctv|pre[\s\-]?roll)\b/gi;
+const STANDARD_SPOT_LENGTHS = [6, 10, 15, 20, 30, 45, 60, 90];
+
+let activeToken = "";
+let activeConfig = {
+  title: "Vimeo Video Directory",
+  exportFileName: "Vimeo Video Directory",
+  primary: "#005399",
+  accent: "#00aeef",
+  accountName: ""
+};
+const streamSessionCache = new Map();
+const streamInFlight = new Map();
+
+function cleanHtmlBaseName(raw, fallback = "Vimeo Video Directory") {
+  const stripped = (raw || "").trim().replace(/\.html?$/i, "").replace(/[<>:"/\\|?*\x00-\x1F]/g, "").trim();
+  return stripped || fallback;
+}
+
+function buildFaviconDataUri(primary, accent) {
+  const p = encodeURIComponent(primary || "#005399");
+  const a = encodeURIComponent(accent || "#00aeef");
+  return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='${p}'/%3E%3Crect x='6' y='6' width='52' height='52' rx='10' fill='none' stroke='${a}' stroke-width='3'/%3E%3Cpolygon points='25,19 25,45 46,32' fill='%23ffffff'/%3E%3C/svg%3E`;
+}
+
+function applyBrandingToDOM(cfg) {
+  const title = (cfg?.title || "Vimeo Video Directory").trim();
+  const primary = cfg?.primary || "#005399";
+  const accent = cfg?.accent || "#00aeef";
+  document.title = title;
+  document.getElementById("brandHeading").textContent = title;
+  document.documentElement.style.setProperty("--brand-primary", primary);
+  document.documentElement.style.setProperty("--brand-accent", accent);
+  const metaTheme = document.getElementById("metaThemeColor");
+  if (metaTheme) metaTheme.setAttribute("content", primary);
+  const fav = document.getElementById("dynamicFavicon");
+  if (fav) fav.href = buildFaviconDataUri(primary, accent);
+}
+
+(function initThemeButton() {
+  const btn = document.getElementById("themeToggleBtn");
+  const syncLabel = () => {
+    const cur = document.documentElement.getAttribute("data-theme") || "light";
+    btn.textContent = IS_MOBILE_SCREEN ? (cur === "dark" ? "☀" : "☾") : (cur === "dark" ? "☀ Light" : "☾ Dark");
+  };
+  syncLabel();
+  btn.addEventListener("click", () => {
+    const cur = document.documentElement.getAttribute("data-theme") || "light";
+    const next = cur === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("vvd_theme", next); } catch {}
+    syncLabel();
+  });
+})();
+
+async function vimeoFetch(endpointOrUrl, signal, tokenOverride) {
+  const tok = tokenOverride || activeToken;
+  const url = endpointOrUrl.startsWith("http") ? endpointOrUrl : "https://api.vimeo.com" + endpointOrUrl;
+  const resp = await fetch(url, {
+    headers: {
+      "Authorization": "bearer " + tok,
+      "Accept": "application/vnd.vimeo.*+json;version=3.4"
+    },
+    signal
+  });
+  if (!resp.ok) throw new Error("Vimeo API " + resp.status);
+  return resp.json();
+}
+
+function openLocalDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open("UniversalVimeoDirectoryDB", 1);
+    req.onupgradeneeded = () => req.result.createObjectStore("state");
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function dbGet(key) {
+  try {
+    const db = await openLocalDB();
+    return await new Promise(resolve => {
+      const req = db.transaction("state", "readonly").objectStore("state").get(key);
+      req.onsuccess = () => resolve(req.result ?? null);
+      req.onerror = () => resolve(null);
+    });
+  } catch { return null; }
+}
+
+async function dbSet(key, val) {
+  try {
+    const db = await openLocalDB();
+    await new Promise(resolve => {
+      const tx = db.transaction("state", "readwrite");
+      tx.objectStore("state").put(val, key);
+      tx.oncomplete = resolve;
+      tx.onerror = resolve;
+    });
+  } catch {}
+}
+
+async function dbClearAll() {
+  try {
+    const db = await openLocalDB();
+    await new Promise(resolve => {
+      const tx = db.transaction("state", "readwrite");
+      tx.objectStore("state").clear();
+      tx.oncomplete = resolve;
+      tx.onerror = resolve;
+    });
+  } catch {}
+}
+
+function extractFilenameFromApiObj(v) {
+  const cvName = (v?.current_version?.filename || "").trim();
+  if (cvName) return cvName;
+  for (const d of (v?.download || [])) {
+    const link = d?.link || "";
+    if (!link) continue;
+    try {
+      const u = new URL(link);
+      const fn = u.searchParams.get("filename") || u.searchParams.get("response-content-disposition") || "";
+      if (fn) {
+        const decoded = decodeURIComponent(fn);
+        const m = decoded.match(/filename\*?=(?:UTF-8'')?"?([^";]+)"?/i);
+        const cand = (m ? m[1] : decoded).trim();
+        if (cand && cand.includes(".")) return cand;
+      }
+    } catch {}
+  }
+  return "";
+}
+
+function parseVttTimedInBrowser(vttText) {
+  const segments = [];
+  let lastSec = -999;
+  let curSec = 0;
+  const timeRe = /^(?:(\d+):)?(\d{2}):(\d{2})\.\d+\s*-->/;
+
+  for (const rawLine of (vttText || "").split(/\r?\n/)) {
+    const s = rawLine.trim();
+    if (!s || s.startsWith("WEBVTT") || s.startsWith("NOTE") || /^\d+$/.test(s)) continue;
+    const m = s.match(timeRe);
+    if (m) {
+      curSec = parseInt(m[1] || "0", 10) * 3600 + parseInt(m[2] || "0", 10) * 60 + parseInt(m[3] || "0", 10);
+      continue;
+    }
+    if (s.includes("-->")) continue;
+    const cleanLine = s.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+    if (!cleanLine || (segments.length && segments[segments.length - 1].endsWith(cleanLine))) continue;
+    if (curSec - lastSec >= 3 || !segments.length) {
+      segments.push(`~${curSec} ${cleanLine}`);
+      lastSec = curSec;
+    } else {
+      segments.push(cleanLine);
+    }
+  }
+  return segments.join(" ").trim();
+}
+
+function convertVttToSrt(vttText) {
+  if (!vttText) return "";
+  const lines = vttText.replace(/\r/g, "").split("\n");
+  const cues = [];
+  const normTime = t => {
+    t = t.trim().split(" ")[0].replace(".", ",");
+    const p = t.split(":");
+    if (p.length === 2) return `00:${p[0].padStart(2, "0")}:${p[1]}`;
+    if (p.length === 3) return `${p[0].padStart(2, "0")}:${p[1].padStart(2, "0")}:${p[2]}`;
+    return t;
+  };
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line.includes("-->")) continue;
+    const rawTimes = line.split(/\s+-->\s+/);
+    if (rawTimes.length < 2) continue;
+    const start = normTime(rawTimes[0]);
+    const end = normTime(rawTimes[1]);
+    const textLines = [];
+    while (++i < lines.length && lines[i].trim() !== "") {
+      const cleaned = lines[i].trim().replace(/<[^>]+>/g, "");
+      if (cleaned) textLines.push(cleaned);
+    }
+    if (textLines.length) cues.push(`${cues.length + 1}\n${start} --> ${end}\n${textLines.join("\n")}`);
+  }
+  return cues.length ? cues.join("\n\n") + "\n" : "";
+}
+
+async function compressJsonToB64(obj) {
+  const bytes = new TextEncoder().encode(JSON.stringify(obj));
+  const cs = new CompressionStream("deflate");
+  const writer = cs.writable.getWriter();
+  writer.write(bytes);
+  writer.close();
+  const u8 = new Uint8Array(await new Response(cs.readable).arrayBuffer());
+  const chunks = [];
+  for (let i = 0; i < u8.length; i += 0x8000) {
+    chunks.push(String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)));
+  }
+  return btoa(chunks.join(""));
+}
+
+async function unpackCatalog(b64) {
+  if (!b64) return null;
+  const bin = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+  const ds = new DecompressionStream("deflate");
+  const writer = ds.writable.getWriter();
+  writer.write(bin);
+  writer.close();
+  return JSON.parse(await new Response(ds.readable).text());
+}
+
+async function resolveFreshStreams(v, abortSignal) {
+  const fallback = { bestMp4: "", previewMp4: "", downloadUrl: "", texttracksUri: "", fps: v?.fps || 29.97 };
+  if (!v?.id) return fallback;
+
+  const cached = streamSessionCache.get(v.id);
+  if (cached && (Date.now() - cached.fetchedAt) < 7200000) return cached;
+  if (streamInFlight.has(v.id)) return streamInFlight.get(v.id);
+
+  const promise = (async () => {
+    try {
+      const data = await vimeoFetch(`/videos/${v.id}?fields=${STREAM_FIELDS}`, abortSignal);
+      const files = data.files || [];
+      const downloads = data.download || [];
+      const ttConn = data.metadata?.connections?.texttracks || {};
+      const texttracksUri = (ttConn.total > 0 && ttConn.uri) ? ttConn.uri : "";
+
+      const detectedFn = extractFilenameFromApiObj(data);
+      if (detectedFn && !v.filename) v.filename = detectedFn;
+
+      let downloadUrl = downloads.find(d => d.rendition === "source" && d.link)?.link || "";
+      if (!downloadUrl && downloads.length) {
+        const sortedDl = downloads.filter(d => d.link).sort((a, b) => (Number(b.width) || Number(b.size) || 0) - (Number(a.width) || Number(a.size) || 0));
+        if (sortedDl.length) downloadUrl = sortedDl[0].link;
+      }
+
+      const mp4s = files.filter(f => f.link && (f.type === "video/mp4" || VALID_MP4_RENDITIONS.has(f.rendition)));
+      let bestMp4 = "", previewMp4 = "", fps = v.fps || 29.97;
+
+      if (mp4s.length) {
+        const desc = [...mp4s].sort((a, b) => (Number(b.width) || 0) - (Number(a.width) || 0));
+        const asc = [...mp4s].sort((a, b) => Math.abs((Number(a.width) || 540) - 540) - Math.abs((Number(b.width) || 540) - 540));
+        bestMp4 = desc[0].link || "";
+        previewMp4 = asc[0].link || bestMp4;
+        if (!downloadUrl) downloadUrl = bestMp4;
+        const rawFps = Number(desc[0].fps) || fps;
+        if (rawFps > 0 && rawFps <= 240) fps = Math.round(rawFps * 1000) / 1000;
+        v.fps = fps;
+      }
+
+      const result = { bestMp4, previewMp4, downloadUrl, texttracksUri, fps, fetchedAt: Date.now() };
+      if (bestMp4 || downloadUrl || texttracksUri) streamSessionCache.set(v.id, result);
+      return result;
+    } catch {
+      return fallback;
+    } finally {
+      streamInFlight.delete(v.id);
+    }
+  })();
+
+  streamInFlight.set(v.id, promise);
+  return promise;
+}
+
+async function fetchRawVttForVideo(v, texttracksUri) {
+  if (v._rawVtt) return v._rawVtt;
+  try {
+    const ttJson = await vimeoFetch(texttracksUri || `/videos/${v.id}/texttracks`);
+    const active = (ttJson.data || []).find(t => t.link);
+    if (active?.link) {
+      const resp = await fetch(active.link);
+      if (resp.ok) return (v._rawVtt = await resp.text());
+    }
+  } catch {}
+  return "";
+}
+
+(async function initApp() {
+  const [embeddedCatalog, savedDbCatalog, savedLocalCfg] = await Promise.all([
+    unpackCatalog(COMPRESSED_CATALOG),
+    dbGet("latestCatalog"),
+    dbGet("userConfig")
+  ]);
+
+  if (BAKED_CONFIG?.token) {
+    activeToken = BAKED_CONFIG.token;
+    activeConfig = {
+      title: BAKED_CONFIG.title || "Vimeo Video Directory",
+      exportFileName: cleanHtmlBaseName(BAKED_CONFIG.exportFileName || BAKED_CONFIG.title || "Vimeo Video Directory"),
+      primary: BAKED_CONFIG.primary || "#005399",
+      accent: BAKED_CONFIG.accent || "#00aeef",
+      accountName: BAKED_CONFIG.accountName || ""
+    };
+  }
+  if (savedLocalCfg?.token) {
+    activeToken = savedLocalCfg.token;
+    activeConfig = {
+      title: savedLocalCfg.title || activeConfig.title,
+      exportFileName: cleanHtmlBaseName(savedLocalCfg.exportFileName || savedLocalCfg.title || activeConfig.exportFileName),
+      primary: savedLocalCfg.primary || activeConfig.primary,
+      accent: savedLocalCfg.accent || activeConfig.accent,
+      accountName: savedLocalCfg.accountName || activeConfig.accountName
+    };
+  }
+  applyBrandingToDOM(activeConfig);
+
+  let catalog = embeddedCatalog || { v: 2, syncedAt: "", count: 0, totalBytes: 0, videos: [] };
+  if (savedDbCatalog?.v === 2 && savedDbCatalog?.videos?.length) {
+    if (!embeddedCatalog?.syncedAt || new Date(savedDbCatalog.syncedAt) > new Date(embeddedCatalog.syncedAt)) {
+      catalog = savedDbCatalog;
+    }
+  }
+
+  let videos = catalog.videos || [];
+  let videoById = new Map();
+
+  function formatBytes(bytes) {
+    bytes = Number(bytes) || 0;
+    if (bytes <= 0) return "—";
+    const units = ["B", "KB", "MB", "GB", "TB"];
+    const i = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
+    return (bytes / Math.pow(1024, i)).toFixed(i > 1 ? 2 : 0) + " " + units[i];
+  }
+
+  function formatDuration(sec) {
+    sec = Math.max(0, Math.floor(Number(sec) || 0));
+    const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+    return h > 0 ? `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}` : `${m}:${String(s).padStart(2, "0")}`;
+  }
+
+  function formatPreciseTimecode(sec, fps) {
+    sec = Math.max(0, Number(sec) || 0);
+    fps = Number(fps) || 29.97;
+    const totalFrames = Math.round(sec * fps);
+    const m = Math.floor(sec / 60);
+    const s = (sec % 60).toFixed(2).padStart(5, "0");
+    return `${m}:${s} • Frame ${totalFrames.toLocaleString()} (${fps} fps)`;
+  }
+
+  function ensureVideoIndexed(v) {
+    if (v._indexed) return v;
+    v.id = String(v.id);
+    v.fps = Number(v.fps) || 29.97;
+    v.duration = Number(v.duration) || 0;
+    v.size = Number(v.size) || 0;
+    v.views = Number(v.views) || 0;
+    v.modified = v.modified || v.created || "";
+    v.filename = v.filename || "";
+    v.description = v.description || "";
+    v.tags = v.tags || [];
+    v.transcript = v.transcript || "";
+
+    if (!v.thumb && v.tk) v.thumb = v.tk.startsWith("http") ? v.tk : (THUMB_PREFIX + v.tk);
+    if (!v.link) v.link = v.lk ? (v.lk.startsWith("http") ? v.lk : (LINK_PREFIX + v.lk)) : (LINK_PREFIX + v.id);
+    if (!v.embed) v.embed = v.ek ? (v.ek.startsWith("http") ? v.ek : (EMBED_PREFIX + v.ek)) : (EMBED_PREFIX + v.id);
+
+    const fname = v.filename;
+    const plainTranscript = v.transcript ? v.transcript.replace(/~\d+\s*/g, " ") : "";
+    const metaText = `${v.title || ""} ${fname} ${v.description} ${v.tags.join(" ")}`;
+    const dur = v.duration;
+
+    const fnSpotMatch = fname ? fname.match(FILENAME_SPOT_TAG_RE) : null;
+    const fnSpotSec = fnSpotMatch ? parseInt(fnSpotMatch[1], 10) : null;
+    const validFnSpot = fnSpotSec !== null && (dur === 0 || Math.abs(dur - fnSpotSec) <= 4);
+
+    v._titleLower = (v.title || "").toLowerCase();
+    v._fileLower = fname.toLowerCase();
+    v._metaLower = metaText.toLowerCase();
+    v._search = `${metaText} ${plainTranscript}`.toLowerCase();
+    v._fnSpotSec = validFnSpot ? fnSpotSec : null;
+    v._hasAdMarker = validFnSpot || POSITIVE_AD_RE.test(metaText);
+    v._isNonAdMeta = NON_AD_META_RE.test(metaText) && !v._hasAdMarker;
+    v._isStandardSpotDur = dur > 0 && STANDARD_SPOT_LENGTHS.some(target => Math.abs(dur - target) <= (target <= 10 ? 1 : 2));
+
+    v._ts = v.created ? Date.parse(v.created) || 0 : 0;
+    v._modTs = v.modified ? Date.parse(v.modified) || 0 : v._ts;
+    v._createdDate = v._ts ? new Date(v._ts).toLocaleDateString() : "—";
+    v._modDate = v._modTs ? new Date(v._modTs).toLocaleDateString() : "—";
+    v._durStr = formatDuration(dur);
+    v._sizeStr = formatBytes(v.size);
+    v._indexed = true;
+    delete v._segments;
+    return v;
+  }
+
+  let allVideosIndexed = false;
+  function ensureAllVideosIndexed() {
+    if (allVideosIndexed) return;
+    for (let i = 0; i < videos.length; i++) ensureVideoIndexed(videos[i]);
+    allVideosIndexed = true;
+  }
+
+  function registerCatalogArray(arr, immediateSliceCount = 60) {
+    videoById = new Map();
+    allVideosIndexed = false;
+    const limit = Math.min(arr.length, immediateSliceCount);
+    for (let i = 0; i < arr.length; i++) {
+      videoById.set(String(arr[i].id), arr[i]);
+      if (i < limit) ensureVideoIndexed(arr[i]);
+    }
+    if (limit >= arr.length) { allVideosIndexed = true; return; }
+    let cursor = limit;
+    const scheduleIdle = window.requestIdleCallback || (cb => setTimeout(cb, 16));
+    const stepIndex = () => {
+      if (allVideosIndexed || arr !== videos) return;
+      const stop = Math.min(arr.length, cursor + 250);
+      for (; cursor < stop; cursor++) ensureVideoIndexed(arr[cursor]);
+      if (cursor >= arr.length) allVideosIndexed = true;
+      else scheduleIdle(stepIndex);
+    };
+    scheduleIdle(stepIndex);
+  }
+
+  const syncInfo = document.getElementById("syncInfo");
+  const deltaBadge = document.getElementById("deltaBadge");
+  const headerControls = document.getElementById("headerControls");
+  const setupWizard = document.getElementById("setupWizard");
+  const directoryWorkspace = document.getElementById("directoryWorkspace");
+  const searchWrap = document.getElementById("searchWrap");
+  const searchInput = document.getElementById("searchInput");
+  const searchClearBtn = document.getElementById("searchClearBtn");
+  const sortSelect = document.getElementById("sortSelect");
+  const perPageSelect = document.getElementById("perPageSelect");
+  const listViewBtn = document.getElementById("listViewBtn");
+  const gridViewBtn = document.getElementById("gridViewBtn");
+  const syncNowBtn = document.getElementById("syncNowBtn");
+  const syncBtnLabel = document.getElementById("syncBtnLabel");
+  const resultCount = document.getElementById("resultCount");
+  const mainScrollArea = document.getElementById("mainScrollArea");
+  const listContainer = document.getElementById("listContainer");
+  const gridContainer = document.getElementById("gridContainer");
+  const videoTableBody = document.getElementById("videoTableBody");
+  const emptyState = document.getElementById("emptyState");
+  const paginationBar = document.getElementById("paginationBar");
+  const pageStatus = document.getElementById("pageStatus");
+  const pageControls = document.getElementById("pageControls");
+
+  const wizTokenInput = document.getElementById("wizTokenInput");
+  const wizTitleInput = document.getElementById("wizTitleInput");
+  const wizFileNameInput = document.getElementById("wizFileNameInput");
+  const wizAutoExportCheck = document.getElementById("wizAutoExportCheck");
+  const wizAutoExportNamePreview = document.getElementById("wizAutoExportNamePreview");
+  const wizPrimaryColor = document.getElementById("wizPrimaryColor");
+  const wizPrimaryHex = document.getElementById("wizPrimaryHex");
+  const wizAccentColor = document.getElementById("wizAccentColor");
+  const wizAccentHex = document.getElementById("wizAccentHex");
+  const wizProgressWrap = document.getElementById("wizProgressWrap");
+  const wizProgressLabel = document.getElementById("wizProgressLabel");
+  const wizProgressBar = document.getElementById("wizProgressBar");
+  const wizStatusMsg = document.getElementById("wizStatusMsg");
+  const wizConnectBtn = document.getElementById("wizConnectBtn");
+
+  const settingsOpenBtn = document.getElementById("settingsOpenBtn");
+  const settingsModal = document.getElementById("settingsModal");
+  const closeSettingsModal = document.getElementById("closeSettingsModal");
+  const settingsAccountSub = document.getElementById("settingsAccountSub");
+  const setTitleInput = document.getElementById("setTitleInput");
+  const setFileNameInput = document.getElementById("setFileNameInput");
+  const setPrimaryColor = document.getElementById("setPrimaryColor");
+  const setPrimaryHex = document.getElementById("setPrimaryHex");
+  const setAccentColor = document.getElementById("setAccentColor");
+  const setAccentHex = document.getElementById("setAccentHex");
+  const saveBrandingBtn = document.getElementById("saveBrandingBtn");
+  const exportTeamHtmlBtn = document.getElementById("exportTeamHtmlBtn");
+  const exportStatusMsg = document.getElementById("exportStatusMsg");
+  const disconnectAccountBtn = document.getElementById("disconnectAccountBtn");
+
+  const videoModal = document.getElementById("videoModal");
+  const closeModal = document.getElementById("closeModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalFileSub = document.getElementById("modalFileSub");
+  const modalPlayer = document.getElementById("modalPlayer");
+  const modalMeta = document.getElementById("modalMeta");
+  const modalDesc = document.getElementById("modalDesc");
+  const modalTranscriptWrap = document.getElementById("modalTranscriptWrap");
+  const modalTranscript = document.getElementById("modalTranscript");
+  const captureStillBtn = document.getElementById("captureStillBtn");
+  const captureStatus = document.getElementById("captureStatus");
+  const modalCopyUrlBtn = document.getElementById("modalCopyUrlBtn");
+  const modalCopyEmbedBtn = document.getElementById("modalCopyEmbedBtn");
+  const modalDownloadMp4Btn = document.getElementById("modalDownloadMp4Btn");
+  const modalDownloadSrtBtn = document.getElementById("modalDownloadSrtBtn");
+  const modalDownloadTxtBtn = document.getElementById("modalDownloadTxtBtn");
+  const frameReadout = document.getElementById("frameReadout");
+
+  let userManuallyEditedWizFilename = false;
+  let activeModalVideo = null;
+  let activeTranscriptRows = [];
+  let activeCueIdx = -1;
+  let modalStreamAbort = null;
+  let iframeTrackedTime = 0;
+  let iframeIsPaused = false;
+  let sortField = "created";
+  let sortDir = "desc";
+  // Default to Grid View on phones for clean vertical cards, List View on desktop
+  let viewMode = IS_MOBILE_SCREEN ? "grid" : "list";
+  let pageSize = IS_MOBILE_SCREEN ? 25 : 50;
+  let currentPage = 1;
+  let currentFiltered = [];
+  let currentQueryObj = { raw: "", remainingRaw: "", phrases: [], tokens: [], regex: null, adIntent: false, targetSec: null, minSec: 0, maxSec: 0 };
+  let isFullSyncRunning = false;
+
+  // Enable desktop auto-export checkbox by default only on desktop screens
+  wizAutoExportCheck.checked = !IS_MOBILE_SCREEN;
+
+  try {
+    const savedView = localStorage.getItem("vvd_view");
+    if (savedView === "grid" || savedView === "list") viewMode = savedView;
+    const savedPageSize = parseInt(localStorage.getItem("vvd_pagesize") || "", 10);
+    if ([25, 50, 100, 250].includes(savedPageSize)) pageSize = savedPageSize;
+  } catch {}
+
+  listViewBtn.classList.toggle("active", viewMode === "list");
+  gridViewBtn.classList.toggle("active", viewMode === "grid");
+  perPageSelect.value = String(pageSize);
+
+  function refreshWizFilenamePreview() {
+    const base = cleanHtmlBaseName(wizFileNameInput.value, cleanHtmlBaseName(wizTitleInput.value));
+    wizAutoExportNamePreview.textContent = `${base}.html`;
+  }
+
+  function refreshSettingsExportButtonLabel() {
+    const base = cleanHtmlBaseName(setFileNameInput.value || activeConfig.exportFileName || activeConfig.title);
+    exportTeamHtmlBtn.textContent = `⬇ Download "${base}.html"`;
+  }
+
+  function syncWizardAndSettingsInputs() {
+    wizPrimaryColor.addEventListener("input", () => {
+      wizPrimaryHex.textContent = wizPrimaryColor.value;
+      applyBrandingToDOM({ title: wizTitleInput.value, primary: wizPrimaryColor.value, accent: wizAccentColor.value });
+    });
+    wizAccentColor.addEventListener("input", () => {
+      wizAccentHex.textContent = wizAccentColor.value;
+      applyBrandingToDOM({ title: wizTitleInput.value, primary: wizPrimaryColor.value, accent: wizAccentColor.value });
+    });
+    wizTitleInput.addEventListener("input", () => {
+      if (!userManuallyEditedWizFilename) {
+        wizFileNameInput.value = cleanHtmlBaseName(wizTitleInput.value, "Vimeo Video Directory");
+      }
+      refreshWizFilenamePreview();
+      applyBrandingToDOM({ title: wizTitleInput.value, primary: wizPrimaryColor.value, accent: wizAccentColor.value });
+    });
+    wizFileNameInput.addEventListener("input", () => {
+      userManuallyEditedWizFilename = Boolean(wizFileNameInput.value.trim());
+      refreshWizFilenamePreview();
+    });
+    setFileNameInput.addEventListener("input", refreshSettingsExportButtonLabel);
+    setPrimaryColor.addEventListener("input", () => { setPrimaryHex.textContent = setPrimaryColor.value; });
+    setAccentColor.addEventListener("input", () => { setAccentHex.textContent = setAccentColor.value; });
+  }
+  syncWizardAndSettingsInputs();
+
+  function showSetupMode() {
+    headerControls.style.display = "none";
+    directoryWorkspace.style.display = "none";
+    setupWizard.style.display = "flex";
+    syncInfo.textContent = "Connect your Vimeo account to get started";
+  }
+
+  function showDirectoryMode() {
+    setupWizard.style.display = "none";
+    headerControls.style.display = "flex";
+    directoryWorkspace.style.display = "flex";
+    updateHeaderSyncInfo();
+    registerCatalogArray(videos, pageSize);
+    render(true);
+  }
+
+  function updateHeaderSyncInfo() {
+    if (catalog.syncedAt) {
+      const acctPrefix = activeConfig.accountName ? `${activeConfig.accountName} • ` : "";
+      syncInfo.textContent = `${acctPrefix}Synced: ${new Date(catalog.syncedAt).toLocaleDateString()} • ${videos.length.toLocaleString()} Videos • ${formatBytes(catalog.totalBytes)}`;
+    }
+  }
+
+  function buildVideoEntryFromApi(v, prev, transcriptOverride) {
+    const id = (v.uri || "").split("/").pop();
+    const created = v.created_time || "";
+    const mod = v.modified_time || created;
+
+    let fsize = Number(v.upload?.size) || 0;
+    if (!fsize && Array.isArray(v.files) && v.files.length) {
+      fsize = Number(v.files.find(f => f.rendition === "source" && f.size)?.size) || Math.max(0, ...v.files.map(f => Number(f.size) || 0));
+    }
+
+    let fps = 29.97;
+    if (Array.isArray(v.files)) {
+      const topFile = v.files.filter(f => f.fps).sort((a, b) => (Number(b.width) || 0) - (Number(a.width) || 0))[0];
+      const parsed = Number(topFile?.fps) || 29.97;
+      if (parsed > 0 && parsed <= 240) fps = Math.round(parsed * 1000) / 1000;
+    }
+
+    const extractedFn = extractFilenameFromApiObj(v) || prev?.filename || "";
+    const rawThumb = (v.pictures?.base_link || "").trim();
+    const rawLink = (v.link || `${LINK_PREFIX}${id}`).trim();
+    const rawEmbed = (v.player_embed_url || `${EMBED_PREFIX}${id}`).trim();
+
+    const entry = {
+      id,
+      title: v.name || "Untitled Video",
+      filename: extractedFn,
+      description: v.description || "",
+      tk: rawThumb.startsWith(THUMB_PREFIX) ? rawThumb.slice(THUMB_PREFIX.length) : rawThumb,
+      lk: rawLink !== `${LINK_PREFIX}${id}` ? (rawLink.startsWith(LINK_PREFIX) ? rawLink.slice(LINK_PREFIX.length) : rawLink) : "",
+      ek: rawEmbed !== `${EMBED_PREFIX}${id}` ? (rawEmbed.startsWith(EMBED_PREFIX) ? rawEmbed.slice(EMBED_PREFIX.length) : rawEmbed) : "",
+      fps,
+      duration: Number(v.duration) || 0,
+      size: fsize,
+      views: Number(v.stats?.plays) || 0,
+      created,
+      modified: mod,
+      tags: (v.tags || []).map(t => t.name).filter(Boolean),
+      transcript: transcriptOverride !== undefined ? transcriptOverride : (prev?.modified === mod ? (prev.transcript || "") : "")
+    };
+    if (v.embed?.html) entry.embedHtml = v.embed.html;
+    return entry;
+  }
+
+  async function downloadTimedTranscriptForItem(ttUri) {
+    try {
+      const ttJson = await vimeoFetch(ttUri);
+      const active = (ttJson.data || []).find(t => t.link);
+      if (active?.link) {
+        const vttResp = await fetch(active.link);
+        if (vttResp.ok) return parseVttTimedInBrowser(await vttResp.text());
+      }
+    } catch {}
+    return "";
+  }
+
+  function stripRuntimePropsForStorage(arr) {
+    return arr.map(v => {
+      const clean = { id: v.id, title: v.title, created: v.created || "" };
+      if (v.modified && v.modified !== v.created) clean.modified = v.modified;
+      if (v.duration) clean.duration = v.duration;
+      if (v.size) clean.size = v.size;
+      if (v.views) clean.views = v.views;
+      if (v.fps && v.fps !== 29.97) clean.fps = v.fps;
+      if (v.filename) clean.filename = v.filename;
+      if (v.description) clean.description = v.description;
+      if (v.tags?.length) clean.tags = v.tags;
+      if (v.transcript) clean.transcript = v.transcript;
+      const tk = v.tk || (v.thumb ? (v.thumb.startsWith(THUMB_PREFIX) ? v.thumb.slice(THUMB_PREFIX.length) : v.thumb) : "");
+      if (tk) clean.tk = tk;
+      if (v.lk) clean.lk = v.lk;
+      if (v.ek) clean.ek = v.ek;
+      if (v.embedHtml) clean.embedHtml = v.embedHtml;
+      return clean;
+    });
+  }
+
+  async function commitUpdatedCatalog(updatedVideos) {
+    updatedVideos.sort((a, b) => (b.created || "").localeCompare(a.created || ""));
+    let sumBytes = 0;
+    for (const v of updatedVideos) sumBytes += (Number(v.size) || 0);
+
+    const storable = {
+      v: 2,
+      syncedAt: new Date().toISOString(),
+      count: updatedVideos.length,
+      totalBytes: sumBytes,
+      videos: stripRuntimePropsForStorage(updatedVideos)
+    };
+    catalog = { ...storable, videos: updatedVideos };
+    videos = updatedVideos;
+    registerCatalogArray(videos, pageSize);
+    await dbSet("latestCatalog", storable);
+    updateHeaderSyncInfo();
+  }
+
+  async function generateAndDownloadCustomHtml(customBaseName) {
+    ensureAllVideosIndexed();
+    const exportPayload = {
+      v: 2,
+      syncedAt: catalog.syncedAt || new Date().toISOString(),
+      count: videos.length,
+      totalBytes: catalog.totalBytes || 0,
+      videos: stripRuntimePropsForStorage(videos)
+    };
+    const newB64 = await compressJsonToB64(exportPayload);
+    const baseName = cleanHtmlBaseName(customBaseName || activeConfig.exportFileName || activeConfig.title);
+    const bakedCfgJson = JSON.stringify({
+      token: activeToken,
+      title: activeConfig.title,
+      exportFileName: baseName,
+      primary: activeConfig.primary,
+      accent: activeConfig.accent,
+      accountName: activeConfig.accountName
+    });
+
+    const safeTitle = (activeConfig.title || "Vimeo Video Directory").replace(/[<>]/g, "");
+    const favHref = buildFaviconDataUri(activeConfig.primary, activeConfig.accent);
+
+    const outHtml = [
+      "<!DOCTYPE html>",
+      '<html lang="en">',
+      "<head>",
+      '<meta charset="UTF-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">',
+      '<meta name="robots" content="noindex, nofollow">',
+      '<meta name="apple-mobile-web-app-capable" content="yes">',
+      `<meta name="theme-color" id="metaThemeColor" content="${activeConfig.primary}">`,
+      `<title>${safeTitle}</title>`,
+      `<link id="dynamicFavicon" rel="icon" type="image/svg+xml" href="${favHref}">`,
+      `<script id="bootThemeScript">${document.getElementById("bootThemeScript").textContent}<\/script>`,
+      `<style id="appStyles">${document.getElementById("appStyles").textContent}</style>`,
+      "</head>",
+      "<body>",
+      INITIAL_BODY_MARKUP,
+      '<script id="bakedConfigScript">',
+      `const BAKED_CONFIG = ${bakedCfgJson};`,
+      `const COMPRESSED_CATALOG = "${newB64}";`,
+      "<\/script>",
+      `<script id="appLogicScript">${document.getElementById("appLogicScript").textContent}<\/script>`,
+      "</body>",
+      "</html>"
+    ].join("\n");
+
+    const fullFileName = `${baseName}.html`;
+    downloadTextBlob(outHtml, fullFileName, "text/html;charset=utf-8");
+    return fullFileName;
+  }
+
+  async function runFullSyncWithProgress(onProgress) {
+    if (isFullSyncRunning) return false;
+    isFullSyncRunning = true;
+    syncNowBtn.disabled = true;
+    syncNowBtn.classList.add("syncing");
+    syncBtnLabel.textContent = "Syncing...";
+
+    try {
+      ensureAllVideosIndexed();
+      const existingById = new Map(videos.map(v => [String(v.id), v]));
+      let nextUrl = `/me/videos?per_page=100&fields=${SYNC_FIELDS}`;
+      const rawMap = new Map();
+      let page = 0;
+
+      while (nextUrl) {
+        page++;
+        const msg = `Fetching catalog page ${page} (${rawMap.size.toLocaleString()} videos found)...`;
+        syncBtnLabel.textContent = `P${page}...`;
+        if (onProgress) onProgress(msg, Math.min(45, page * 8));
+
+        const data = await vimeoFetch(nextUrl);
+        for (const item of (data.data || [])) {
+          const id = (item.uri || "").split("/").pop();
+          if (id && !rawMap.has(id)) rawMap.set(id, item);
+        }
+        nextUrl = data.paging?.next || null;
+      }
+
+      const rawList = Array.from(rawMap.values());
+      const queue = [];
+      for (const item of rawList) {
+        const id = (item.uri || "").split("/").pop();
+        const mod = item.modified_time || item.created_time || "";
+        const prev = existingById.get(id);
+        const ttConn = item.metadata?.connections?.texttracks || {};
+        if ((!prev || (prev.modified || prev.created) !== mod) && ttConn.total > 0 && ttConn.uri) {
+          queue.push({ id, ttUri: ttConn.uri });
+        }
+      }
+
+      const newTranscripts = new Map();
+      if (queue.length) {
+        const totalJobs = queue.length;
+        let done = 0;
+        await Promise.all(Array.from({ length: Math.min(8, totalJobs) }, async () => {
+          while (queue.length) {
+            const job = queue.shift();
+            newTranscripts.set(job.id, await downloadTimedTranscriptForItem(job.ttUri));
+            done++;
+            syncBtnLabel.textContent = `CC ${done}/${totalJobs}`;
+            if (onProgress) {
+              const pct = 45 + Math.round((done / totalJobs) * 50);
+              onProgress(`Syncing time-coded transcripts (${done.toLocaleString()} of ${totalJobs.toLocaleString()})...`, pct);
+            }
+          }
+        }));
+      }
+
+      if (onProgress) onProgress("Indexing & saving local catalog...", 96);
+      const updatedVideos = rawList.map(v => {
+        const id = (v.uri || "").split("/").pop();
+        return buildVideoEntryFromApi(v, existingById.get(id), newTranscripts.get(id));
+      });
+
+      await commitUpdatedCatalog(updatedVideos);
+      try { sessionStorage.setItem("vvd_last_delta_ts", String(Date.now())); } catch {}
+      deltaBadge.style.display = "none";
+      syncBtnLabel.textContent = `✓ (${videos.length})`;
+      setTimeout(() => { syncBtnLabel.textContent = IS_MOBILE_SCREEN ? "Sync" : "Sync Library"; }, 3000);
+      return true;
+    } catch (err) {
+      syncBtnLabel.textContent = "Failed";
+      setTimeout(() => { syncBtnLabel.textContent = IS_MOBILE_SCREEN ? "Sync" : "Sync Library"; }, 3000);
+      throw err;
+    } finally {
+      isFullSyncRunning = false;
+      syncNowBtn.disabled = false;
+      syncNowBtn.classList.remove("syncing");
+    }
+  }
+
+  wizConnectBtn.addEventListener("click", async () => {
+    const candidateToken = wizTokenInput.value.trim();
+    if (!candidateToken || candidateToken.length < 16) {
+      wizStatusMsg.className = "wizard-status";
+      wizStatusMsg.textContent = "Please paste a valid Vimeo Personal Access Token first.";
+      wizTokenInput.focus();
+      return;
+    }
+
+    wizConnectBtn.disabled = true;
+    wizStatusMsg.textContent = "";
+    wizProgressWrap.style.display = "flex";
+    wizProgressBar.style.width = "5%";
+    wizProgressLabel.textContent = "Verifying Vimeo token & account permissions...";
+
+    try {
+      const meResp = await fetch("https://api.vimeo.com/me?fields=name,uri", {
+        headers: {
+          "Authorization": "bearer " + candidateToken,
+          "Accept": "application/vnd.vimeo.*+json;version=3.4"
+        }
+      });
+      if (!meResp.ok) {
+        throw new Error(meResp.status === 401 ? "Invalid token. Make sure you generated an Authenticated token and copied all characters." : `Vimeo API returned ${meResp.status}`);
+      }
+      const scopesHeader = (meResp.headers.get("x-oauth-scopes") || "").toLowerCase();
+      const meData = await meResp.json();
+      const accountName = meData.name || "Vimeo Account";
+
+      const rawTitleVal = wizTitleInput.value.trim();
+      const chosenTitle = (!rawTitleVal || rawTitleVal === "Vimeo Video Directory")
+        ? `${accountName} Video Directory`
+        : rawTitleVal;
+      const chosenExportFile = userManuallyEditedWizFilename
+        ? cleanHtmlBaseName(wizFileNameInput.value, chosenTitle)
+        : cleanHtmlBaseName(chosenTitle);
+
+      if (scopesHeader && !scopesHeader.includes("video_files")) {
+        wizStatusMsg.className = "wizard-status ok";
+        wizStatusMsg.textContent = `Connected to "${accountName}" (Using iframe player fallback—'video_files' scope not enabled).`;
+      } else {
+        wizStatusMsg.className = "wizard-status ok";
+        wizStatusMsg.textContent = `✓ Verified "${accountName}"! Building your directory...`;
+      }
+
+      activeToken = candidateToken;
+      activeConfig = {
+        token: candidateToken,
+        title: chosenTitle,
+        exportFileName: chosenExportFile,
+        primary: wizPrimaryColor.value || "#005399",
+        accent: wizAccentColor.value || "#00aeef",
+        accountName
+      };
+      applyBrandingToDOM(activeConfig);
+      await dbSet("userConfig", activeConfig);
+
+      await runFullSyncWithProgress((label, pct) => {
+        wizProgressLabel.textContent = label;
+        wizProgressBar.style.width = `${pct}%`;
+      });
+
+      if (wizAutoExportCheck.checked) {
+        wizProgressLabel.textContent = `Packing & downloading "${chosenExportFile}.html"...`;
+        wizProgressBar.style.width = "99%";
+        await generateAndDownloadCustomHtml(chosenExportFile);
+      }
+
+      wizProgressBar.style.width = "100%";
+      showDirectoryMode();
+    } catch (err) {
+      wizProgressWrap.style.display = "none";
+      wizStatusMsg.className = "wizard-status";
+      wizStatusMsg.textContent = err.message || "Could not connect to Vimeo. Check your token and network connection.";
+    } finally {
+      wizConnectBtn.disabled = false;
+    }
+  });
+
+  settingsOpenBtn.addEventListener("click", () => {
+    exportStatusMsg.textContent = "";
+    settingsAccountSub.textContent = activeConfig.accountName ? `Connected Account: ${activeConfig.accountName}` : "Connected via Personal Access Token";
+    setTitleInput.value = activeConfig.title || "Vimeo Video Directory";
+    setFileNameInput.value = cleanHtmlBaseName(activeConfig.exportFileName || activeConfig.title);
+    setPrimaryColor.value = activeConfig.primary || "#005399";
+    setPrimaryHex.textContent = setPrimaryColor.value;
+    setAccentColor.value = activeConfig.accent || "#00aeef";
+    setAccentHex.textContent = setAccentColor.value;
+    refreshSettingsExportButtonLabel();
+    settingsModal.classList.add("open");
+  });
+
+  closeSettingsModal.addEventListener("click", () => settingsModal.classList.remove("open"));
+  settingsModal.addEventListener("click", e => { if (e.target === settingsModal) settingsModal.classList.remove("open"); });
+
+  saveBrandingBtn.addEventListener("click", async () => {
+    activeConfig.title = setTitleInput.value.trim() || "Vimeo Video Directory";
+    activeConfig.exportFileName = cleanHtmlBaseName(setFileNameInput.value, activeConfig.title);
+    setFileNameInput.value = activeConfig.exportFileName;
+    activeConfig.primary = setPrimaryColor.value;
+    activeConfig.accent = setAccentColor.value;
+    activeConfig.token = activeToken;
+    applyBrandingToDOM(activeConfig);
+    refreshSettingsExportButtonLabel();
+    await dbSet("userConfig", activeConfig);
+    exportStatusMsg.textContent = "✓ Settings saved!";
+    setTimeout(() => { exportStatusMsg.textContent = ""; }, 2000);
+  });
+
+  exportTeamHtmlBtn.addEventListener("click", async () => {
+    exportTeamHtmlBtn.disabled = true;
+    exportStatusMsg.textContent = "⏳ Compressing catalog & building HTML file...";
+    try {
+      activeConfig.title = setTitleInput.value.trim() || activeConfig.title || "Vimeo Video Directory";
+      activeConfig.exportFileName = cleanHtmlBaseName(setFileNameInput.value, activeConfig.title);
+      activeConfig.primary = setPrimaryColor.value || activeConfig.primary;
+      activeConfig.accent = setAccentColor.value || activeConfig.accent;
+      activeConfig.token = activeToken;
+      applyBrandingToDOM(activeConfig);
+      await dbSet("userConfig", activeConfig);
+
+      const savedName = await generateAndDownloadCustomHtml(activeConfig.exportFileName);
+      exportStatusMsg.textContent = `✓ Downloaded "${savedName}"!`;
+    } catch {
+      exportStatusMsg.textContent = "Export failed.";
+    } finally {
+      exportTeamHtmlBtn.disabled = false;
+      refreshSettingsExportButtonLabel();
+    }
+  });
+
+  disconnectAccountBtn.addEventListener("click", async () => {
+    if (!confirm("Disconnect this Vimeo token and clear the cached video catalog from this device?")) return;
+    await dbClearAll();
+    try { sessionStorage.removeItem("vvd_last_delta_ts"); } catch {}
+    activeToken = "";
+    videos = [];
+    catalog = { v: 2, syncedAt: "", count: 0, totalBytes: 0, videos: [] };
+    settingsModal.classList.remove("open");
+    wizTokenInput.value = "";
+    wizProgressWrap.style.display = "none";
+    wizStatusMsg.textContent = "";
+    showSetupMode();
+  });
+
+  syncNowBtn.addEventListener("click", () => {
+    runFullSyncWithProgress().then(() => render(false)).catch(() => {});
+  });
+
+  async function runSilentDeltaCheck() {
+    if (!activeToken || isFullSyncRunning) return;
+    try {
+      const lastCheck = parseInt(sessionStorage.getItem("vvd_last_delta_ts") || "0", 10);
+      if (Date.now() - lastCheck < DELTA_COOLDOWN_MS) return;
+      sessionStorage.setItem("vvd_last_delta_ts", String(Date.now()));
+    } catch {}
+
+    try {
+      const data = await vimeoFetch(`/me/videos?per_page=25&sort=date&direction=desc&fields=${SYNC_FIELDS}`);
+      if (isFullSyncRunning || !data.data?.length) return;
+
+      ensureAllVideosIndexed();
+      const existingMap = new Map(videos.map(v => [String(v.id), v]));
+      let addedCount = 0, updatedCount = 0;
+
+      for (const item of data.data) {
+        const id = (item.uri || "").split("/").pop();
+        if (!id) continue;
+        const mod = item.modified_time || item.created_time || "";
+        const prev = existingMap.get(id);
+        const freshFn = extractFilenameFromApiObj(item);
+
+        if (!prev || (prev.modified || prev.created) !== mod || (freshFn && !prev.filename)) {
+          const ttConn = item.metadata?.connections?.texttracks || {};
+          const transcript = (!prev || (prev.modified || prev.created) !== mod) && ttConn.total > 0 && ttConn.uri
+            ? await downloadTimedTranscriptForItem(ttConn.uri)
+            : (prev?.transcript || "");
+          existingMap.set(id, buildVideoEntryFromApi(item, prev, transcript));
+          prev ? updatedCount++ : addedCount++;
+        } else {
+          prev.views = Number(item.stats?.plays) || prev.views;
+        }
+      }
+
+      if ((addedCount > 0 || updatedCount > 0) && !isFullSyncRunning) {
+        await commitUpdatedCatalog(Array.from(existingMap.values()));
+        render(false);
+        if (addedCount > 0) {
+          deltaBadge.style.display = "inline-block";
+          deltaBadge.textContent = `+${addedCount} new`;
+        }
+      }
+    } catch {}
+  }
+
+  function escapeHtml(str) {
+    return (str || "").replace(/[&<>"']/g, c => HTML_ESCAPES[c]);
+  }
+
+  function compileSearchQuery(rawQuery) {
+    const raw = (rawQuery || "").trim().toLowerCase();
+    if (!raw) return { raw: "", remainingRaw: "", phrases: [], tokens: [], regex: null, adIntent: false, targetSec: null, minSec: 0, maxSec: 0, userAskedForNonAd: false };
+
+    let working = raw;
+    const phrases = [];
+    working = working.replace(/"([^"]+)"/g, (_, inner) => {
+      const p = inner.trim();
+      if (p) phrases.push(p);
+      return " ";
+    });
+
+    let targetSec = null, adIntent = false;
+    const colonOrUnderscoreMatch = working.match(/(?:^|\s)(?:(?:0?:|_)(0?6|10|15|20|30|45|60|90)|0?:(\d{1,2})|(\d):(\d{2}))(?=\s|$)/);
+    if (colonOrUnderscoreMatch) {
+      const parsed = colonOrUnderscoreMatch[1] !== undefined
+        ? parseInt(colonOrUnderscoreMatch[1], 10)
+        : (colonOrUnderscoreMatch[2] !== undefined
+            ? parseInt(colonOrUnderscoreMatch[2], 10)
+            : (parseInt(colonOrUnderscoreMatch[3], 10) * 60 + parseInt(colonOrUnderscoreMatch[4], 10)));
+      if (parsed > 0 && parsed <= 180) {
+        targetSec = parsed;
+        adIntent = true;
+        working = working.replace(colonOrUnderscoreMatch[0], " ");
+      }
+    }
+
+    if (targetSec === null) {
+      const wordDurMatch = working.match(/(?:^|\s)[:_]?(\d{1,3})[\s\-]*(?:seconds?|secs?|s)(?=\s|$)/i);
+      if (wordDurMatch) {
+        const parsed = parseInt(wordDurMatch[1], 10);
+        if (parsed > 0 && parsed <= 180) {
+          targetSec = parsed;
+          adIntent = true;
+          working = working.replace(wordDurMatch[0], " ");
+        }
+      }
+    }
+
+    AD_INTENT_WORDS_RE.lastIndex = 0;
+    if (AD_INTENT_WORDS_RE.test(working)) {
+      adIntent = true;
+      working = working.replace(AD_INTENT_WORDS_RE, " ");
+    }
+
+    if (adIntent && targetSec === null) {
+      const bareNumMatch = working.match(/(?:^|\s)(\d{1,3})(?=\s|$)/);
+      if (bareNumMatch) {
+        const parsed = parseInt(bareNumMatch[1], 10);
+        if (parsed > 0 && parsed <= 120) {
+          targetSec = parsed;
+          working = working.replace(bareNumMatch[0], " ");
+        }
+      }
+    }
+
+    const unquotedClean = working.replace(/"/g, " ").replace(/\s+/g, " ").trim();
+    const tokens = unquotedClean ? unquotedClean.split(/\s+/).filter(Boolean) : [];
+    const remainingRaw = [...phrases, unquotedClean].filter(Boolean).join(" ").trim();
+    const userAskedForNonAd = NON_AD_META_RE.test(remainingRaw);
+
+    let minSec = 0, maxSec = 0;
+    if (targetSec !== null) {
+      const tol = targetSec <= 10 ? 1 : 2;
+      minSec = Math.max(1, targetSec - tol);
+      maxSec = targetSec + tol;
+    }
+
+    const highlightTerms = [...phrases, unquotedClean, ...tokens].filter((v, idx, arr) => v && v.length >= 2 && arr.indexOf(v) === idx);
+    if (targetSec !== null) {
+      const pad2 = String(targetSec).padStart(2, "0");
+      highlightTerms.push(`:${pad2}`, `:${targetSec}`, `${targetSec}s`, `${targetSec}-second`, `${targetSec} second`);
+    }
+    highlightTerms.sort((a, b) => b.length - a.length);
+
+    const escapedPatterns = highlightTerms.map(s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+    return {
+      raw, remainingRaw, phrases, tokens,
+      regex: escapedPatterns.length ? new RegExp(`(${escapedPatterns.join("|")})`, "gi") : null,
+      adIntent, targetSec, minSec, maxSec, userAskedForNonAd
+    };
+  }
+
+  function matchesAdAndDurationFilter(v, qObj) {
+    const dur = v.duration;
+    if (qObj.targetSec !== null) {
+      const matchesFnTag = v._fnSpotSec === qObj.targetSec;
+      const matchesDurRange = dur >= qObj.minSec && dur <= qObj.maxSec;
+      if (!matchesFnTag && !matchesDurRange) return false;
+      if (!qObj.userAskedForNonAd && v._isNonAdMeta) return false;
+    } else if (qObj.adIntent) {
+      if (dur <= 0 || dur > 125) return false;
+      if (!qObj.userAskedForNonAd && v._isNonAdMeta) return false;
+      if (!v._hasAdMarker && !v._isStandardSpotDur) return false;
+    }
+    for (let i = 0; i < qObj.phrases.length; i++) if (!v._search.includes(qObj.phrases[i])) return false;
+    for (let i = 0; i < qObj.tokens.length; i++) if (!v._search.includes(qObj.tokens[i])) return false;
+    return true;
+  }
+
+  function scoreAdCandidate(v, qObj) {
+    let score = 0;
+    if (v._fnSpotSec !== null) {
+      score += 8;
+      if (qObj.targetSec !== null && v._fnSpotSec === qObj.targetSec) score += 6;
+    }
+    if (v._hasAdMarker) score += 4;
+    if (qObj.targetSec !== null) {
+      const pad2 = String(qObj.targetSec).padStart(2, "0");
+      if (v._metaLower.includes(`:${pad2}`) || v._metaLower.includes(`_${pad2}`) || v._metaLower.includes(`${qObj.targetSec}s`)) score += 3;
+      if (Math.abs(v.duration - qObj.targetSec) === 0) score += 2;
+    }
+    if (qObj.remainingRaw && (v._titleLower.includes(qObj.remainingRaw) || v._fileLower.includes(qObj.remainingRaw))) score += 4;
+    return score;
+  }
+
+  function highlightQueryHtml(text, qObj) {
+    const safe = escapeHtml(text);
+    return qObj?.regex ? safe.replace(qObj.regex, '<mark class="sb-hl">$1</mark>') : safe;
+  }
+
+  function getTimedSegments(v) {
+    if (v._segments) return v._segments;
+    const raw = v.transcript || "";
+    if (!raw) return (v._segments = []);
+    const segs = [];
+    for (const p of raw.split(/(?=~\d+\s)/)) {
+      const m = p.match(/^~(\d+)\s+([\s\S]*)$/);
+      const text = (m ? m[2] : p).trim();
+      if (text) segs.push({ sec: m ? parseInt(m[1], 10) : 0, text, lower: text.toLowerCase() });
+    }
+    return (v._segments = segs);
+  }
+
+  function buildSrtFallbackFromSegments(segs) {
+    const toSrtTime = sec => {
+      const h = String(Math.floor(sec / 3600)).padStart(2, "0");
+      const m = String(Math.floor((sec % 3600) / 60)).padStart(2, "0");
+      const s = String(Math.floor(sec % 60)).padStart(2, "0");
+      return `${h}:${m}:${s},000`;
+    };
+    return segs.map((seg, i) => {
+      const nextSec = (i + 1 < segs.length) ? Math.max(seg.sec + 1, segs[i + 1].sec) : (seg.sec + 4);
+      return `${i + 1}\n${toSrtTime(seg.sec)} --> ${toSrtTime(nextSec)}\n${seg.text}`;
+    }).join("\n\n") + "\n";
+  }
+
+  function findSoundbiteMatches(v, qObj, maxHits = 3) {
+    const primaryPhrase = qObj?.phrases?.[0] || qObj?.remainingRaw || "";
+    if (!primaryPhrase || primaryPhrase.length < 2 || !v.transcript) return [];
+    const segs = getTimedSegments(v);
+    const exactHits = [], tokenHits = [];
+    const makeSnippet = (text, idx, len) => {
+      const start = Math.max(0, idx - 35);
+      const end = Math.min(text.length, idx + len + 55);
+      return (start > 0 ? "…" : "") + text.slice(start, end).trim() + (end < text.length ? "…" : "");
+    };
+    for (const seg of segs) {
+      const exactIdx = seg.lower.indexOf(primaryPhrase);
+      if (exactIdx !== -1) {
+        exactHits.push({ sec: seg.sec, snippet: makeSnippet(seg.text, exactIdx, primaryPhrase.length) });
+        if (exactHits.length >= maxHits) return exactHits;
+      } else if (!qObj.phrases.length && qObj.tokens.length > 1 && tokenHits.length < maxHits && qObj.tokens.every(t => seg.lower.includes(t))) {
+        tokenHits.push({ sec: seg.sec, snippet: makeSnippet(seg.text, seg.lower.indexOf(qObj.tokens[0]), 30) });
+      }
+    }
+    return [...exactHits, ...tokenHits].slice(0, maxHits);
+  }
+
+  function getEmbedCode(v) {
+    ensureVideoIndexed(v);
+    return v.embedHtml || `<iframe src="${v.embed}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+  }
+
+  function downloadTextBlob(content, filename, mimeType = "text/plain;charset=utf-8") {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  async function copyToClipboard(text, btnEl, originalLabel) {
+    try {
+      if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(text);
+      else {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.cssText = "position:fixed;opacity:0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+      }
+      if (btnEl) {
+        btnEl.textContent = "✓ Copied!";
+        btnEl.classList.add("btn-copied");
+        setTimeout(() => { btnEl.textContent = originalLabel; btnEl.classList.remove("btn-copied"); }, 1400);
+      }
+    } catch {}
+  }
+
+  modalCopyUrlBtn.addEventListener("click", () => { if (activeModalVideo) copyToClipboard(activeModalVideo.link, modalCopyUrlBtn, "Copy URL"); });
+  modalCopyEmbedBtn.addEventListener("click", () => { if (activeModalVideo) copyToClipboard(getEmbedCode(activeModalVideo), modalCopyEmbedBtn, "Copy Embed"); });
+
+  function syncActiveTranscriptCue(curSec) {
+    if (!activeTranscriptRows.length) return;
+    let matchIdx = -1;
+    for (let i = 0; i < activeTranscriptRows.length; i++) {
+      if (curSec >= activeTranscriptRows[i].sec) matchIdx = i;
+      else break;
+    }
+    if (matchIdx === activeCueIdx) return;
+    if (activeCueIdx >= 0 && activeTranscriptRows[activeCueIdx]) activeTranscriptRows[activeCueIdx].el.classList.remove("active-cue");
+    activeCueIdx = matchIdx;
+    if (activeCueIdx >= 0 && activeTranscriptRows[activeCueIdx]) activeTranscriptRows[activeCueIdx].el.classList.add("active-cue");
+  }
+
+  function updateFrameReadout(curSec) {
+    if (activeModalVideo) {
+      frameReadout.textContent = formatPreciseTimecode(curSec, activeModalVideo.fps || 29.97);
+      syncActiveTranscriptCue(curSec);
+    }
+  }
+
+  function seekActiveModalTo(targetSec) {
+    if (!activeModalVideo) return;
+    targetSec = Math.max(0, Number(targetSec) || 0);
+    const vidEl = modalPlayer.querySelector("video");
+    if (vidEl) { vidEl.currentTime = targetSec; vidEl.play().catch(() => {}); updateFrameReadout(targetSec); return; }
+    const ifrEl = modalPlayer.querySelector("iframe");
+    if (ifrEl?.contentWindow) {
+      iframeTrackedTime = targetSec;
+      iframeIsPaused = false;
+      ifrEl.contentWindow.postMessage(JSON.stringify({ method: "setCurrentTime", value: targetSec }), "*");
+      ifrEl.contentWindow.postMessage(JSON.stringify({ method: "play" }), "*");
+      updateFrameReadout(targetSec);
+    }
+  }
+
+  function stepFrames(frameCount) {
+    if (!activeModalVideo) return;
+    const fps = Number(activeModalVideo.fps) || 29.97;
+    const frameDur = 1 / fps;
+    const vidEl = modalPlayer.querySelector("video");
+    if (vidEl) {
+      if (!vidEl.paused) vidEl.pause();
+      const maxDur = vidEl.duration || activeModalVideo.duration || 999999;
+      const targetFrame = Math.max(0, Math.round((vidEl.currentTime || 0) * fps) + frameCount);
+      const nextTime = Math.min(maxDur, Math.max(0, (targetFrame * frameDur) + 0.0001));
+      vidEl.currentTime = nextTime;
+      updateFrameReadout(nextTime);
+      return;
+    }
+    const ifrEl = modalPlayer.querySelector("iframe");
+    if (ifrEl?.contentWindow) {
+      ifrEl.contentWindow.postMessage(JSON.stringify({ method: "pause" }), "*");
+      iframeIsPaused = true;
+      iframeTrackedTime = Math.min(activeModalVideo.duration || 999999, Math.max(0, iframeTrackedTime + (frameCount * frameDur)));
+      ifrEl.contentWindow.postMessage(JSON.stringify({ method: "setCurrentTime", value: iframeTrackedTime }), "*");
+      updateFrameReadout(iframeTrackedTime);
+    }
+  }
+
+  function toggleModalPlayPause() {
+    if (!activeModalVideo) return;
+    const vidEl = modalPlayer.querySelector("video");
+    if (vidEl) { vidEl.paused ? vidEl.play().catch(() => {}) : vidEl.pause(); return; }
+    const ifrEl = modalPlayer.querySelector("iframe");
+    if (ifrEl?.contentWindow) {
+      iframeIsPaused = !iframeIsPaused;
+      ifrEl.contentWindow.postMessage(JSON.stringify({ method: iframeIsPaused ? "pause" : "play" }), "*");
+    }
+  }
+
+  document.getElementById("stepBack10Btn").addEventListener("click", () => stepFrames(-10));
+  document.getElementById("stepBack1Btn").addEventListener("click", () => stepFrames(-1));
+  document.getElementById("stepPlayPauseBtn").addEventListener("click", toggleModalPlayPause);
+  document.getElementById("stepFwd1Btn").addEventListener("click", () => stepFrames(1));
+  document.getElementById("stepFwd10Btn").addEventListener("click", () => stepFrames(10));
+
+  function goToCatalogPage(nextP) {
+    const totalPages = Math.max(1, Math.ceil(currentFiltered.length / pageSize));
+    const clamped = Math.max(1, Math.min(totalPages, nextP));
+    if (clamped !== currentPage) {
+      currentPage = clamped;
+      renderCurrentPage();
+      mainScrollArea.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
+  window.addEventListener("keydown", e => {
+    const tag = document.activeElement?.tagName || "";
+    const inInput = (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT");
+
+    if (settingsModal.classList.contains("open")) {
+      if (e.key === "Escape") settingsModal.classList.remove("open");
+      return;
+    }
+    if (setupWizard.style.display !== "none") return;
+
+    if (!videoModal.classList.contains("open")) {
+      if (e.key === "/" && !inInput) {
+        e.preventDefault();
+        searchInput.focus();
+        searchInput.select();
+      } else if (e.key === "Escape" && document.activeElement === searchInput && searchInput.value) {
+        searchInput.value = "";
+        render(true);
+      } else if (!inInput && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        if (e.key === "ArrowLeft" || e.key === "[") { e.preventDefault(); goToCatalogPage(currentPage - 1); }
+        else if (e.key === "ArrowRight" || e.key === "]") { e.preventDefault(); goToCatalogPage(currentPage + 1); }
+      }
+      return;
+    }
+
+    if (inInput) return;
+    if (e.key === "ArrowLeft") { e.preventDefault(); stepFrames(e.shiftKey ? -10 : -1); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); stepFrames(e.shiftKey ? 10 : 1); }
+    else if (e.key === ",") { e.preventDefault(); stepFrames(-1); }
+    else if (e.key === ".") { e.preventDefault(); stepFrames(1); }
+    else if (e.key === " ") { e.preventDefault(); toggleModalPlayPause(); }
+    else if (e.key === "Escape") { closeVideoModal(); }
+  });
+
+  const previewCtrl = {
+    el: null, vid: null, timer: null, abort: null, mediaEl: null,
+    isDragging: false, isSeeking: false, pendingTime: null, lastIframeSeek: 0, rafId: 0
+  };
+
+  function teardownActivePreview() {
+    if (previewCtrl.rafId) { cancelAnimationFrame(previewCtrl.rafId); previewCtrl.rafId = 0; }
+    if (previewCtrl.timer) { clearTimeout(previewCtrl.timer); previewCtrl.timer = null; }
+    if (previewCtrl.abort) { previewCtrl.abort.abort(); previewCtrl.abort = null; }
+    if (previewCtrl.mediaEl) {
+      if (previewCtrl.mediaEl.tagName === "VIDEO") {
+        previewCtrl.mediaEl.pause();
+        previewCtrl.mediaEl.removeAttribute("src");
+        previewCtrl.mediaEl.load();
+      }
+      previewCtrl.mediaEl.remove();
+      previewCtrl.mediaEl = null;
+    }
+    if (previewCtrl.el) {
+      const fill = previewCtrl.el.querySelector(".scrub-fill");
+      if (fill) fill.style.width = "0%";
+      previewCtrl.el._scrubTime = 0;
+    }
+    previewCtrl.el = null;
+    previewCtrl.vid = null;
+    previewCtrl.isSeeking = false;
+    previewCtrl.pendingTime = null;
+  }
+
+  function updateThumbScrubUI(thumbEl, v, curSec) {
+    const dur = Number(v.duration) || (previewCtrl.mediaEl?.duration) || 0;
+    if (!dur) return;
+    const ratio = Math.max(0, Math.min(1, curSec / dur));
+    const fill = thumbEl.querySelector(".scrub-fill");
+    const pill = thumbEl.querySelector(".scrub-time-pill");
+    if (fill) fill.style.width = `${(ratio * 100).toFixed(1)}%`;
+    if (pill) pill.textContent = `${formatDuration(curSec)} / ${v._durStr}`;
+    thumbEl._scrubTime = curSec;
+  }
+
+  async function mountHoverMedia(thumbEl, v) {
+    if (previewCtrl.el !== thumbEl || previewCtrl.mediaEl || previewCtrl.abort) return;
+    ensureVideoIndexed(v);
+    const ctrl = new AbortController();
+    previewCtrl.abort = ctrl;
+    const streams = await resolveFreshStreams(v, ctrl.signal);
+    if (previewCtrl.abort === ctrl) previewCtrl.abort = null;
+    if (previewCtrl.el !== thumbEl || previewCtrl.mediaEl) return;
+
+    const mp4Url = streams.previewMp4 || streams.bestMp4;
+    if (mp4Url) {
+      const vid = document.createElement("video");
+      vid.className = "hover-preview-el";
+      vid.src = mp4Url;
+      vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = "auto"; vid.autoplay = true;
+      vid.addEventListener("loadedmetadata", () => { if (thumbEl._scrubTime > 0) vid.currentTime = thumbEl._scrubTime; }, { once: true });
+      vid.addEventListener("timeupdate", () => { if (!previewCtrl.isDragging && previewCtrl.el === thumbEl) updateThumbScrubUI(thumbEl, v, vid.currentTime || 0); });
+      vid.addEventListener("seeking", () => { previewCtrl.isSeeking = true; });
+      vid.addEventListener("seeked", () => {
+        previewCtrl.isSeeking = false;
+        if (previewCtrl.pendingTime !== null && previewCtrl.mediaEl === vid) {
+          const t = previewCtrl.pendingTime;
+          previewCtrl.pendingTime = null;
+          vid.currentTime = t;
+        }
+      });
+      thumbEl.appendChild(vid);
+      vid.play().catch(() => {});
+      previewCtrl.mediaEl = vid;
+    } else if (v.embed) {
+      const ifr = document.createElement("iframe");
+      ifr.className = "hover-preview-el";
+      const sep = v.embed.includes("?") ? "&" : "?";
+      ifr.src = `${v.embed}${sep}background=1&autoplay=1&muted=1&loop=1&autopause=0&api=1`;
+      ifr.allow = "autoplay";
+      thumbEl.appendChild(ifr);
+      previewCtrl.mediaEl = ifr;
+    }
+  }
+
+  function scrubActiveThumbAtClientX(clientX) {
+    const thumbEl = previewCtrl.el, v = previewCtrl.vid;
+    if (!thumbEl || !v) return;
+    const rect = thumbEl.getBoundingClientRect();
+    if (!rect.width) return;
+    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    const dur = Number(v.duration) || (previewCtrl.mediaEl?.duration) || 0;
+    const targetSec = ratio * dur;
+    updateThumbScrubUI(thumbEl, v, targetSec);
+    mountHoverMedia(thumbEl, v);
+
+    const media = previewCtrl.mediaEl;
+    if (media?.tagName === "VIDEO" && dur > 0 && media.readyState >= 1) {
+      if (!previewCtrl.isSeeking) media.currentTime = targetSec;
+      else previewCtrl.pendingTime = targetSec;
+    } else if (media?.tagName === "IFRAME" && dur > 0) {
+      const now = performance.now();
+      if (now - previewCtrl.lastIframeSeek > 110 && media.contentWindow) {
+        previewCtrl.lastIframeSeek = now;
+        media.contentWindow.postMessage(JSON.stringify({ method: "setCurrentTime", value: Math.floor(targetSec) }), "*");
+      }
+    }
+  }
+
+  mainScrollArea.addEventListener("pointerover", e => {
+    if (e.pointerType === "touch" || previewCtrl.isDragging) return;
+    const thumbEl = e.target.closest(".row-thumb, .thumb-wrap");
+    if (thumbEl === previewCtrl.el) return;
+    teardownActivePreview();
+    if (!thumbEl) return;
+    const v = videoById.get(thumbEl.dataset.vid);
+    if (!v) return;
+    previewCtrl.el = thumbEl;
+    previewCtrl.vid = v;
+    previewCtrl.timer = setTimeout(() => mountHoverMedia(thumbEl, v), 150);
+  });
+
+  mainScrollArea.addEventListener("pointerout", e => {
+    if (e.pointerType === "touch" || previewCtrl.isDragging || !previewCtrl.el) return;
+    if (!previewCtrl.el.contains(e.relatedTarget)) teardownActivePreview();
+  });
+
+  function beginScrubSession(scrubTarget, startClientX, isTouch) {
+    const thumbEl = scrubTarget.closest(".row-thumb, .thumb-wrap");
+    const v = thumbEl ? videoById.get(thumbEl.dataset.vid) : null;
+    if (!thumbEl || !v) return;
+
+    if (previewCtrl.el !== thumbEl) { teardownActivePreview(); previewCtrl.el = thumbEl; previewCtrl.vid = v; }
+    if (previewCtrl.timer) { clearTimeout(previewCtrl.timer); previewCtrl.timer = null; }
+
+    previewCtrl.isDragging = true;
+    thumbEl._wasDragging = true;
+    const zone = thumbEl.querySelector(".scrub-zone");
+    if (zone) zone.classList.add("dragging");
+    scrubActiveThumbAtClientX(startClientX);
+
+    let latestClientX = startClientX;
+    const scheduleScrub = x => {
+      latestClientX = x;
+      if (!previewCtrl.rafId) {
+        previewCtrl.rafId = requestAnimationFrame(() => {
+          previewCtrl.rafId = 0;
+          if (previewCtrl.isDragging) scrubActiveThumbAtClientX(latestClientX);
+        });
+      }
+    };
+
+    if (isTouch) {
+      const onTouchMove = tm => {
+        if (tm.touches?.[0]) { tm.preventDefault(); scheduleScrub(tm.touches[0].clientX); }
+      };
+      const onTouchEnd = () => {
+        previewCtrl.isDragging = false;
+        if (previewCtrl.rafId) { cancelAnimationFrame(previewCtrl.rafId); previewCtrl.rafId = 0; }
+        if (zone) zone.classList.remove("dragging");
+        window.removeEventListener("touchmove", onTouchMove);
+        window.removeEventListener("touchend", onTouchEnd);
+        setTimeout(() => { thumbEl._wasDragging = false; }, 120);
+      };
+      window.addEventListener("touchmove", onTouchMove, { passive: false });
+      window.addEventListener("touchend", onTouchEnd);
+    } else {
+      const onMove = mv => scheduleScrub(mv.clientX);
+      const onUp = uv => {
+        previewCtrl.isDragging = false;
+        if (previewCtrl.rafId) { cancelAnimationFrame(previewCtrl.rafId); previewCtrl.rafId = 0; }
+        if (zone) zone.classList.remove("dragging");
+        window.removeEventListener("mousemove", onMove);
+        window.removeEventListener("mouseup", onUp);
+        setTimeout(() => { thumbEl._wasDragging = false; }, 80);
+        const hoveredAfter = document.elementFromPoint(uv.clientX, uv.clientY);
+        if (!hoveredAfter || !thumbEl.contains(hoveredAfter)) teardownActivePreview();
+      };
+      window.addEventListener("mousemove", onMove);
+      window.addEventListener("mouseup", onUp);
+    }
+  }
+
+  mainScrollArea.addEventListener("mousedown", e => {
+    const scrubTarget = e.target.closest(".scrub-zone, .scrub-time-pill");
+    if (!scrubTarget) return;
+    e.stopPropagation();
+    e.preventDefault();
+    beginScrubSession(scrubTarget, e.clientX, false);
+  });
+
+  mainScrollArea.addEventListener("touchstart", e => {
+    const scrubTarget = e.target.closest(".scrub-zone, .scrub-time-pill");
+    if (!scrubTarget || !e.touches?.[0]) return;
+    e.stopPropagation();
+    beginScrubSession(scrubTarget, e.touches[0].clientX, true);
+  }, { passive: true });
+
+  function updateSortHeaders() {
+    sortSelect.value = `${sortField}:${sortDir}`;
+    document.querySelectorAll("th[data-field]").forEach(th => {
+      const isMatch = th.getAttribute("data-field") === sortField;
+      th.classList.toggle("active-sort", isMatch);
+      th.querySelector(".sort-arrow").textContent = isMatch ? (sortDir === "asc" ? "▲" : "▼") : "";
+    });
+  }
+
+  function sanitizeFilename(name) {
+    return (name || "video_file").replace(/[^a-z0-9_\-\.]/gi, "_").replace(/_+/g, "_");
+  }
+
+  async function downloadHighResThumbFallback(v, suffix) {
+    ensureVideoIndexed(v);
+    if (!v?.thumb) { captureStatus.textContent = "No image available"; return; }
+    try {
+      captureStatus.textContent = "Saving full-res still...";
+      const resp = await fetch(`${v.thumb}_1920x1080.jpg`);
+      const blob = await resp.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${sanitizeFilename(v.title)}${suffix || "_still"}.jpg`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      captureStatus.textContent = "Saved .JPG!";
+      setTimeout(() => { captureStatus.textContent = ""; }, 3000);
+    } catch { captureStatus.textContent = "Download failed"; }
+  }
+
+  captureStillBtn.addEventListener("click", async () => {
+    if (!activeModalVideo) return;
+    const vidEl = modalPlayer.querySelector("video");
+    if (vidEl && vidEl.readyState >= 2 && vidEl.videoWidth > 0) {
+      try {
+        const canvas = document.createElement("canvas");
+        canvas.width = vidEl.videoWidth;
+        canvas.height = vidEl.videoHeight;
+        canvas.getContext("2d").drawImage(vidEl, 0, 0, canvas.width, canvas.height);
+        const curSec = vidEl.currentTime || 0;
+        const frameNum = Math.round(curSec * (activeModalVideo.fps || 29.97));
+        const m = String(Math.floor(curSec / 60)).padStart(2, "0");
+        const s = String(Math.floor(curSec % 60)).padStart(2, "0");
+        canvas.toBlob(blob => {
+          if (!blob) return downloadHighResThumbFallback(activeModalVideo, `_${m}m${s}s_f${frameNum}`);
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${sanitizeFilename(activeModalVideo.title)}_${m}m${s}s_frame${frameNum}_${canvas.width}x${canvas.height}.jpg`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+          captureStatus.textContent = `Saved Frame ${frameNum}!`;
+          setTimeout(() => { captureStatus.textContent = ""; }, 3500);
+        }, "image/jpeg", 0.96);
+        return;
+      } catch {}
+    }
+    await downloadHighResThumbFallback(activeModalVideo, "_fullres");
+  });
+
+  modalTranscript.addEventListener("click", e => {
+    const row = e.target.closest(".t-seg");
+    if (row?.dataset.sec !== undefined) seekActiveModalTo(Number(row.dataset.sec));
+  });
+
+  function renderModalTranscript(v) {
+    activeTranscriptRows = [];
+    activeCueIdx = -1;
+    const segs = getTimedSegments(v);
+    if (!segs.length) { modalTranscriptWrap.style.display = "none"; modalTranscript.innerHTML = ""; return; }
+    modalTranscriptWrap.style.display = "block";
+    const frag = document.createDocumentFragment();
+    let firstMatchEl = null;
+    const primaryPhrase = currentQueryObj.phrases?.[0] || "";
+
+    for (const seg of segs) {
+      const row = document.createElement("div");
+      row.className = "t-seg";
+      row.dataset.sec = String(seg.sec);
+      row.innerHTML = `<span class="t-seg-time">[${formatDuration(seg.sec)}]</span><span class="t-seg-text">${highlightQueryHtml(seg.text, currentQueryObj)}</span>`;
+      activeTranscriptRows.push({ sec: seg.sec, el: row });
+      if (!firstMatchEl) {
+        if (primaryPhrase && seg.lower.includes(primaryPhrase)) firstMatchEl = row;
+        else if (!primaryPhrase && currentQueryObj.tokens.length && currentQueryObj.tokens.every(t => seg.lower.includes(t))) firstMatchEl = row;
+      }
+      frag.appendChild(row);
+    }
+    modalTranscript.innerHTML = "";
+    modalTranscript.appendChild(frag);
+    if (firstMatchEl) setTimeout(() => firstMatchEl.scrollIntoView({ behavior: "smooth", block: "center" }), 120);
+  }
+
+  async function openVideo(v, startAtSec = 0) {
+    ensureVideoIndexed(v);
+    teardownActivePreview();
+    if (modalStreamAbort) modalStreamAbort.abort();
+    modalStreamAbort = new AbortController();
+
+    activeModalVideo = v;
+    iframeTrackedTime = startAtSec || 0;
+    iframeIsPaused = false;
+    captureStatus.textContent = "";
+    modalDownloadMp4Btn.style.display = "none";
+    modalDownloadSrtBtn.style.display = v.transcript ? "inline-block" : "none";
+    modalDownloadTxtBtn.style.display = v.transcript ? "inline-block" : "none";
+
+    modalTitle.textContent = v.title || "Untitled";
+    if (v.filename) { modalFileSub.style.display = "block"; modalFileSub.textContent = v.filename; }
+    else { modalFileSub.style.display = "none"; modalFileSub.textContent = ""; }
+
+    modalMeta.textContent = `Duration: ${v._durStr}  |  Size: ${v._sizeStr}  |  Views: ${(v.views || 0).toLocaleString()}  |  Uploaded: ${v._createdDate}`;
+    modalDesc.textContent = v.description || "";
+    renderModalTranscript(v);
+    updateFrameReadout(startAtSec || 0);
+
+    modalDownloadTxtBtn.onclick = () => {
+      const txtBody = getTimedSegments(v).map(s => `[${formatDuration(s.sec)}] ${s.text}`).join("\n");
+      downloadTextBlob(txtBody, `${sanitizeFilename(v.filename || v.title)}_transcript.txt`);
+    };
+
+    let resolvedTexttracksUri = "";
+    modalDownloadSrtBtn.onclick = async () => {
+      const origLabel = modalDownloadSrtBtn.textContent;
+      modalDownloadSrtBtn.textContent = "⏳ SRT...";
+      const rawVtt = await fetchRawVttForVideo(v, resolvedTexttracksUri);
+      const srtContent = (rawVtt ? convertVttToSrt(rawVtt) : "") || buildSrtFallbackFromSegments(getTimedSegments(v));
+      downloadTextBlob(srtContent, `${sanitizeFilename(v.filename || v.title)}.srt`);
+      modalDownloadSrtBtn.textContent = origLabel;
+    };
+
+    modalPlayer.innerHTML = `<div class="stream-loader">Loading high-resolution video stream...</div>`;
+    videoModal.classList.add("open");
+
+    const streams = await resolveFreshStreams(v, modalStreamAbort.signal);
+    if (activeModalVideo !== v) return;
+
+    if (v.filename && !modalFileSub.textContent) { modalFileSub.style.display = "block"; modalFileSub.textContent = v.filename; }
+    resolvedTexttracksUri = streams.texttracksUri || "";
+    if (resolvedTexttracksUri && !v.transcript) modalDownloadSrtBtn.style.display = "inline-block";
+
+    const dlTarget = streams.downloadUrl || streams.bestMp4;
+    if (dlTarget) {
+      modalDownloadMp4Btn.style.display = "inline-block";
+      modalDownloadMp4Btn.onclick = () => {
+        const a = document.createElement("a");
+        a.href = dlTarget;
+        a.download = v.filename || `${sanitizeFilename(v.title)}.mp4`;
+        a.target = "_blank"; a.rel = "noopener";
+        document.body.appendChild(a); a.click(); a.remove();
+      };
+    }
+
+    if (streams.bestMp4) {
+      modalPlayer.innerHTML = `<video src="${streams.bestMp4}" crossorigin="anonymous" controls autoplay playsinline></video>`;
+      const vidEl = modalPlayer.querySelector("video");
+      if (vidEl) {
+        vidEl.addEventListener("loadedmetadata", () => {
+          if (startAtSec > 0) vidEl.currentTime = startAtSec;
+          updateFrameReadout(vidEl.currentTime || 0);
+        }, { once: true });
+        vidEl.addEventListener("timeupdate", () => updateFrameReadout(vidEl.currentTime || 0));
+        vidEl.addEventListener("seeked", () => updateFrameReadout(vidEl.currentTime || 0));
+      }
+    } else {
+      const sep = v.embed.includes("?") ? "&" : "?";
+      const hashTime = startAtSec > 0 ? `#t=${Math.floor(startAtSec)}s` : "";
+      modalPlayer.innerHTML = `<iframe src="${v.embed}${sep}api=1&playsinline=1${hashTime}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+    }
+  }
+
+  function closeVideoModal() {
+    if (modalStreamAbort) { modalStreamAbort.abort(); modalStreamAbort = null; }
+    videoModal.classList.remove("open");
+    modalPlayer.innerHTML = "";
+    activeModalVideo = null;
+    activeTranscriptRows = [];
+    activeCueIdx = -1;
+    captureStatus.textContent = "";
+  }
+  closeModal.addEventListener("click", closeVideoModal);
+  videoModal.addEventListener("click", e => { if (e.target === videoModal) closeVideoModal(); });
+
+  mainScrollArea.addEventListener("click", e => {
+    if (e.target.closest(".scrub-zone, .scrub-time-pill")) return;
+
+    const pageBtn = e.target.closest("[data-page]");
+    if (pageBtn && !pageBtn.disabled) {
+      const nextP = parseInt(pageBtn.dataset.page, 10);
+      if (nextP) goToCatalogPage(nextP);
+      return;
+    }
+
+    const sbPill = e.target.closest(".soundbite-pill");
+    if (sbPill) {
+      const vid = videoById.get(sbPill.dataset.vid);
+      if (vid) openVideo(vid, Math.max(0, Number(sbPill.dataset.sec || 0) - 1));
+      return;
+    }
+
+    const thumbEl = e.target.closest(".row-thumb, .thumb-wrap");
+    if (thumbEl) {
+      if (thumbEl._wasDragging) return;
+      const vid = videoById.get(thumbEl.dataset.vid);
+      if (vid) openVideo(vid, thumbEl._scrubTime || 0);
+      return;
+    }
+
+    const actionEl = e.target.closest("[data-action]");
+    if (!actionEl) return;
+    const vid = videoById.get(actionEl.dataset.vid);
+    if (!vid) return;
+    ensureVideoIndexed(vid);
+
+    const act = actionEl.dataset.action;
+    if (act === "watch") openVideo(vid, 0);
+    else if (act === "copy-url") copyToClipboard(vid.link, actionEl, "Copy URL");
+    else if (act === "copy-embed") copyToClipboard(getEmbedCode(vid), actionEl, "Copy Embed");
+  });
+
+  function buildPageNumberList(cur, total) {
+    if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+    const pages = [1];
+    if (cur > 3) pages.push("…");
+    for (let i = Math.max(2, cur - 1); i <= Math.min(total - 1, cur + 1); i++) pages.push(i);
+    if (cur < total - 2) pages.push("…");
+    pages.push(total);
+    return pages;
+  }
+
+  function renderPaginationControls(totalItems, totalPages, startIdx, endIdx) {
+    if (totalItems === 0) { paginationBar.style.display = "none"; return; }
+    paginationBar.style.display = "flex";
+    pageStatus.textContent = `Page ${currentPage.toLocaleString()} of ${totalPages.toLocaleString()} (${(startIdx + 1).toLocaleString()}–${endIdx.toLocaleString()} of ${totalItems.toLocaleString()})`;
+
+    const items = buildPageNumberList(currentPage, totalPages);
+    let html = `<button type="button" class="page-btn" data-page="${currentPage - 1}" ${currentPage <= 1 ? "disabled" : ""}>◀ Prev</button>`;
+    for (const p of items) {
+      html += p === "…" ? `<span class="page-ellipsis">…</span>` : `<button type="button" class="page-btn${p === currentPage ? " active" : ""}" data-page="${p}">${p}</button>`;
+    }
+    html += `<button type="button" class="page-btn" data-page="${currentPage + 1}" ${currentPage >= totalPages ? "disabled" : ""}>Next ▶</button>`;
+    pageControls.innerHTML = html;
+  }
+
+  function renderCurrentPage() {
+    teardownActivePreview();
+    const totalFiltered = currentFiltered.length;
+    const totalPages = Math.max(1, Math.ceil(totalFiltered / pageSize));
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    const startIdx = (currentPage - 1) * pageSize;
+    const endIdx = Math.min(startIdx + pageSize, totalFiltered);
+    const slice = currentFiltered.slice(startIdx, endIdx);
+
+    if (totalFiltered === 0) {
+      resultCount.textContent = `Showing 0 of ${videos.length.toLocaleString()} videos`;
+      listContainer.style.display = "none";
+      gridContainer.style.display = "none";
+      emptyState.style.display = "block";
+      paginationBar.style.display = "none";
+      videoTableBody.innerHTML = "";
+      gridContainer.innerHTML = "";
+      return;
+    }
+
+    emptyState.style.display = "none";
+    resultCount.textContent = `Showing ${(startIdx + 1).toLocaleString()}–${endIdx.toLocaleString()} of ${totalFiltered.toLocaleString()} videos`;
+    listContainer.style.display = viewMode === "list" ? "block" : "none";
+    gridContainer.style.display = viewMode === "grid" ? "grid" : "none";
+    videoTableBody.innerHTML = "";
+    gridContainer.innerHTML = "";
+
+    const frag = document.createDocumentFragment();
+    if (viewMode === "list") {
+      for (const v of slice) {
+        ensureVideoIndexed(v);
+        const tr = document.createElement("tr");
+        const thumbUrl = v.thumb ? `${v.thumb}_295x166` : "";
+        const soundbites = findSoundbiteMatches(v, currentQueryObj, 3);
+        const sbHtml = soundbites.length ? `<div class="soundbite-list">${soundbites.map(sb => `<div class="soundbite-pill" data-vid="${v.id}" data-sec="${sb.sec}"><span class="sb-time">▶ ${formatDuration(sb.sec)}</span><span class="sb-text">${highlightQueryHtml(sb.snippet, currentQueryObj)}</span></div>`).join("")}</div>` : "";
+        tr.innerHTML = `
+          <td>
+            <div class="title-cell">
+              <div class="row-thumb" data-vid="${v.id}">
+                ${thumbUrl ? `<img src="${thumbUrl}" loading="lazy" decoding="async">` : ""}
+                <span class="scrub-time-pill">0:00 / ${v._durStr}</span>
+                <div class="scrub-zone"><div class="scrub-track"><div class="scrub-fill"><span class="scrub-handle"></span></div></div></div>
+              </div>
+              <div class="title-info">
+                <span class="row-title" data-action="watch" data-vid="${v.id}">${highlightQueryHtml(v.title || "Untitled", currentQueryObj)}${v.transcript ? `<span class="cc-pill">CC</span>` : ""}</span>
+                ${v.description ? `<span class="row-sub">${highlightQueryHtml(v.description, currentQueryObj)}</span>` : ""}
+                ${sbHtml}
+              </div>
+            </div>
+          </td>
+          <td class="mono-num">${v._durStr}</td>
+          <td class="mono-num">${v._sizeStr}</td>
+          <td class="mono-num">${(v.views || 0).toLocaleString()}</td>
+          <td class="mono-num">${v._createdDate}</td>
+          <td class="mono-num">${v._modDate}</td>
+          <td>
+            <div class="action-group">
+              <button class="btn" data-action="watch" data-vid="${v.id}">Watch</button>
+              <button class="btn btn-secondary" data-action="copy-url" data-vid="${v.id}">Copy URL</button>
+              <button class="btn btn-secondary" data-action="copy-embed" data-vid="${v.id}">Copy Embed</button>
+            </div>
+          </td>`;
+        frag.appendChild(tr);
+      }
+      videoTableBody.appendChild(frag);
+    } else {
+      for (const v of slice) {
+        ensureVideoIndexed(v);
+        const card = document.createElement("div");
+        card.className = "card";
+        const thumbUrl = v.thumb ? `${v.thumb}_640x360` : "";
+        const soundbites = findSoundbiteMatches(v, currentQueryObj, 2);
+        const sbHtml = soundbites.length ? `<div class="soundbite-list">${soundbites.map(sb => `<div class="soundbite-pill" data-vid="${v.id}" data-sec="${sb.sec}"><span class="sb-time">▶ ${formatDuration(sb.sec)}</span><span class="sb-text">${highlightQueryHtml(sb.snippet, currentQueryObj)}</span></div>`).join("")}</div>` : "";
+        card.innerHTML = `
+          <div class="thumb-wrap" data-vid="${v.id}">
+            ${thumbUrl ? `<img src="${thumbUrl}" loading="lazy" decoding="async">` : ""}
+            ${v.transcript ? `<span class="transcript-badge">CC</span>` : ""}
+            <span class="duration-badge">${v._durStr}</span>
+            <span class="scrub-time-pill">0:00 / ${v._durStr}</span>
+            <div class="scrub-zone"><div class="scrub-track"><div class="scrub-fill"><span class="scrub-handle"></span></div></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-title" data-action="watch" data-vid="${v.id}">${highlightQueryHtml(v.title || "Untitled", currentQueryObj)}</div>
+            <div class="card-meta-row"><span>Size: ${v._sizeStr}</span><span>Views: ${(v.views || 0).toLocaleString()}</span></div>
+            ${sbHtml}
+            <div class="card-footer">
+              <div class="card-dates"><span>Uploaded: ${v._createdDate}</span><span>Modified: ${v._modDate}</span></div>
+              <div class="action-group">
+                <button class="btn" data-action="watch" data-vid="${v.id}">Watch</button>
+                <button class="btn btn-secondary" data-action="copy-url" data-vid="${v.id}">Copy URL</button>
+                <button class="btn btn-secondary" data-action="copy-embed" data-vid="${v.id}">Copy Embed</button>
+              </div>
+            </div>
+          </div>`;
+        frag.appendChild(card);
+      }
+      gridContainer.appendChild(frag);
+    }
+    renderPaginationControls(totalFiltered, totalPages, startIdx, endIdx);
+  }
+
+  function render(resetToFirstPage = true) {
+    if (resetToFirstPage) currentPage = 1;
+    updateSortHeaders();
+    currentQueryObj = compileSearchQuery(searchInput.value);
+    searchWrap.classList.toggle("has-val", Boolean(currentQueryObj.raw));
+
+    if (!currentQueryObj.raw && sortField === "created" && sortDir === "desc") {
+      currentFiltered = videos;
+      mainScrollArea.scrollTop = 0;
+      renderCurrentPage();
+      return;
+    }
+
+    ensureAllVideosIndexed();
+    currentFiltered = currentQueryObj.raw ? videos.filter(v => matchesAdAndDurationFilter(v, currentQueryObj)) : [...videos];
+
+    const mult = sortDir === "asc" ? 1 : -1;
+    currentFiltered.sort((a, b) => {
+      if ((currentQueryObj.adIntent || currentQueryObj.targetSec !== null) && sortField === "created" && sortDir === "desc") {
+        const diff = scoreAdCandidate(b, currentQueryObj) - scoreAdCandidate(a, currentQueryObj);
+        if (diff !== 0) return diff;
+      } else if (currentQueryObj.remainingRaw && sortField === "created" && sortDir === "desc") {
+        const aExact = (a._titleLower.includes(currentQueryObj.remainingRaw) || a._fileLower.includes(currentQueryObj.remainingRaw)) ? 1 : 0;
+        const bExact = (b._titleLower.includes(currentQueryObj.remainingRaw) || b._fileLower.includes(currentQueryObj.remainingRaw)) ? 1 : 0;
+        if (aExact !== bExact) return bExact - aExact;
+      }
+      if (sortField === "created") return (a._ts - b._ts) * mult;
+      if (sortField === "modified") return (a._modTs - b._modTs) * mult;
+      if (sortField === "size") return (a.size - b.size) * mult;
+      if (sortField === "duration") return (a.duration - b.duration) * mult;
+      if (sortField === "views") return (a.views - b.views) * mult;
+      if (sortField === "title") return TITLE_COLLATOR.compare(a.title || "", b.title || "") * mult;
+      return 0;
+    });
+
+    mainScrollArea.scrollTop = 0;
+    renderCurrentPage();
+  }
+
+  listViewBtn.addEventListener("click", () => { viewMode = "list"; listViewBtn.classList.add("active"); gridViewBtn.classList.remove("active"); try { localStorage.setItem("vvd_view", "list"); } catch {} renderCurrentPage(); });
+  gridViewBtn.addEventListener("click", () => { viewMode = "grid"; gridViewBtn.classList.add("active"); listViewBtn.classList.remove("active"); try { localStorage.setItem("vvd_view", "grid"); } catch {} renderCurrentPage(); });
+  perPageSelect.addEventListener("change", () => { pageSize = parseInt(perPageSelect.value, 10) || 50; try { localStorage.setItem("vvd_pagesize", String(pageSize)); } catch {} currentPage = 1; mainScrollArea.scrollTop = 0; renderCurrentPage(); });
+  searchClearBtn.addEventListener("click", () => { searchInput.value = ""; searchInput.focus(); render(true); });
+
+  document.querySelectorAll("th[data-field]").forEach(th => {
+    th.addEventListener("click", () => {
+      const clickedField = th.getAttribute("data-field");
+      if (sortField === clickedField) sortDir = sortDir === "desc" ? "asc" : "desc";
+      else { sortField = clickedField; sortDir = th.getAttribute("data-default-dir") || "desc"; }
+      render(true);
+    });
+  });
+
+  sortSelect.addEventListener("change", () => {
+    const [f, d] = sortSelect.value.split(":");
+    sortField = f; sortDir = d || "desc";
+    render(true);
+  });
+
+  let debounceTimer;
+  searchInput.addEventListener("input", () => { clearTimeout(debounceTimer); debounceTimer = setTimeout(() => render(true), 110); });
+
+  if (!activeToken) {
+    showSetupMode();
+  } else if (!videos.length) {
+    showSetupMode();
+    wizTokenInput.value = activeToken;
+    wizTitleInput.value = activeConfig.title;
+    wizFileNameInput.value = activeConfig.exportFileName || activeConfig.title;
+    refreshWizFilenamePreview();
+  } else {
+    showDirectoryMode();
+    setTimeout(runSilentDeltaCheck, 600);
+  }
+})();
+</script>
+</body>
+</html>
